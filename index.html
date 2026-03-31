@@ -357,7 +357,12 @@
     margin-bottom: 3.5rem;
     flex-wrap: wrap; gap: 1rem;
   }
-  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--sand-200); border: 1px solid var(--sand-200); border-radius: 8px; overflow: hidden; }
+  /* case study rows — each row holds its own cards + expand panel */
+  .case-rows { display: flex; flex-direction: column; border: 1px solid var(--sand-200); border-radius: 8px; overflow: hidden; }
+  .case-row { display: flex; flex-direction: column; }
+  .case-row + .case-row { border-top: 2px solid var(--sand-200); }
+  .case-row-cards { display: flex; gap: 2px; background: var(--sand-200); }
+  .case-row-cards .case-card { flex: 1; }
   .case-card {
     background: var(--white);
     padding: 2.5rem;
@@ -366,6 +371,7 @@
     position: relative;
   }
   .case-card:hover { background: var(--sand-50); }
+  .case-card.active { background: var(--accent-light); border-bottom: 2px solid var(--accent); }
   .case-card.featured {
     grid-column: 1 / -1;
     display: grid;
@@ -547,6 +553,92 @@
     letter-spacing: 0.03em;
   }
 
+  /* ── RECOMMENDATIONS ── */
+  #recommendations { background: var(--white); }
+  .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .rec-card {
+    background: var(--sand-50);
+    border: 1px solid var(--sand-200);
+    border-radius: 8px;
+    padding: 2.2rem 2rem 1.8rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+  .rec-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+  .rec-featured {
+    grid-column: 1 / -1;
+    background: var(--accent-light);
+    border-color: rgba(45,90,78,0.18);
+    border-left: 3px solid var(--accent);
+  }
+  .rec-quote-mark {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.25;
+    position: absolute;
+    top: 1rem;
+    left: 1.8rem;
+    pointer-events: none;
+  }
+  .rec-featured .rec-quote-mark { opacity: 0.35; }
+  blockquote.rec-body {
+    font-size: 0.93rem;
+    color: var(--ink-700);
+    line-height: 1.85;
+    font-style: normal;
+    padding-top: 1.2rem;
+  }
+  .rec-featured blockquote.rec-body {
+    font-size: 0.97rem;
+    color: var(--ink-900);
+  }
+  .rec-attribution {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--sand-200);
+  }
+  .rec-featured .rec-attribution { border-top-color: rgba(45,90,78,0.15); }
+  .rec-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 0.2rem;
+  }
+  .rec-title {
+    font-size: 0.78rem;
+    color: var(--ink-400, var(--ink-500));
+    letter-spacing: 0.01em;
+  }
+  .rec-verify {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .rec-verify:hover { opacity: 1; text-decoration: underline; }
+  @media (max-width: 900px) {
+    .rec-grid { grid-template-columns: 1fr; }
+    .rec-featured { grid-column: 1; }
+  }
+
   /* ── CONTACT ── */
   #contact { background: var(--ink-900); }
   #contact .section-label { color: var(--sand-300); }
@@ -656,7 +748,7 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .hero-inner, .about-grid, .contact-grid, .expand-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .case-grid { grid-template-columns: 1fr; }
+    .case-row-cards { flex-direction: column; }
     .case-card.featured { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .projects-grid { grid-template-columns: 1fr 1fr; }
@@ -677,6 +769,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#recommendations">Recommendations</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -831,203 +924,202 @@
       <p class="section-intro" style="max-width:380px;font-size:0.9rem">Each project is documented with the problem, my specific role, how it worked, and what I learned. Click any card to expand.</p>
     </div>
 
-    <div class="case-grid">
+    <div class="case-rows">
 
-      <!-- FEATURED: LLM Roadmap System -->
-      <div class="case-card featured" data-case="llm">
-        <div>
-          <span class="case-tag">AI · Internal Tools</span>
-          <h3 class="case-title">Jira-Integrated LLM System for Roadmap Visibility</h3>
-          <p class="case-desc">Built a system that auto-generated roadmap status responses for stakeholders: queue position, sprint dates, effort estimates, and reprioritization context. It eliminated PM interrupt work on routine status questions entirely.</p>
-          <div class="case-metrics">
-            <div class="case-metric">
-              <div class="case-metric-num">30%</div>
-              <div class="case-metric-label">Fewer inbound inquiries</div>
+      <!-- ROW 1: LLM (featured, full width) -->
+      <div class="case-row">
+        <div class="case-row-cards">
+          <div class="case-card featured" data-case="llm">
+            <div>
+              <span class="case-tag">AI · Internal Tools</span>
+              <h3 class="case-title">Jira-Integrated LLM System for Roadmap Visibility</h3>
+              <p class="case-desc">Built a system that auto-generated roadmap status responses for stakeholders: queue position, sprint dates, effort estimates, and reprioritization context. It eliminated PM interrupt work on routine status questions entirely.</p>
+              <div class="case-metrics">
+                <div class="case-metric">
+                  <div class="case-metric-num">30%</div>
+                  <div class="case-metric-label">Fewer inbound inquiries</div>
+                </div>
+                <div class="case-metric">
+                  <div class="case-metric-num">~40</div>
+                  <div class="case-metric-label">Questions/week eliminated</div>
+                </div>
+                <div class="case-metric">
+                  <div class="case-metric-num">&lt;2 min</div>
+                  <div class="case-metric-label">Response time (was 8–12 min)</div>
+                </div>
+              </div>
+              <span class="case-arrow">Expand case study →</span>
             </div>
-            <div class="case-metric">
-              <div class="case-metric-num">~40</div>
-              <div class="case-metric-label">Questions/week eliminated</div>
-            </div>
-            <div class="case-metric">
-              <div class="case-metric-num">&lt;2 min</div>
-              <div class="case-metric-label">Response time (was 8–12 min)</div>
+            <div class="case-visual">
+              <svg viewBox="0 0 340 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="75" width="80" height="50" rx="6" fill="#e8f0ee" stroke="#4a7c6f" stroke-width="1.5"/>
+                <text x="60" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#2d5a4e" font-weight="600">JIRA</text>
+                <text x="60" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Tickets · Sprints</text>
+                <rect x="20" y="145" width="80" height="40" rx="6" fill="#f3efe9" stroke="#b8a890" stroke-width="1.5"/>
+                <text x="60" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#3d3629" font-weight="600">Roadmap</text>
+                <text x="60" y="176" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Comments · Context</text>
+                <rect x="20" y="20" width="80" height="40" rx="6" fill="#f3efe9" stroke="#b8a890" stroke-width="1.5"/>
+                <text x="60" y="38" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#3d3629" font-weight="600">Sprint Cal</text>
+                <text x="60" y="51" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Dates · Capacity</text>
+                <line x1="100" y1="40" x2="148" y2="88" stroke="#b8a890" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
+                <line x1="100" y1="100" x2="148" y2="100" stroke="#4a7c6f" stroke-width="1.5" marker-end="url(#arr2)"/>
+                <line x1="100" y1="160" x2="148" y2="112" stroke="#b8a890" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
+                <rect x="150" y="72" width="80" height="56" rx="8" fill="#2d5a4e" stroke="none"/>
+                <text x="190" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="white" font-weight="600">LLM</text>
+                <text x="190" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(255,255,255,0.7)">Synthesize + Send</text>
+                <line x1="230" y1="100" x2="268" y2="100" stroke="#4a7c6f" stroke-width="1.5" marker-end="url(#arr2)"/>
+                <rect x="270" y="72" width="60" height="56" rx="6" fill="#e8f0ee" stroke="#4a7c6f" stroke-width="1.5"/>
+                <text x="300" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#2d5a4e" font-weight="600">Slack</text>
+                <text x="300" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Auto-reply</text>
+                <defs>
+                  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                    <path d="M2 1L8 5L2 9" fill="none" stroke="#b8a890" stroke-width="1.5" stroke-linecap="round"/>
+                  </marker>
+                  <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                    <path d="M2 1L8 5L2 9" fill="none" stroke="#4a7c6f" stroke-width="1.5" stroke-linecap="round"/>
+                  </marker>
+                </defs>
+              </svg>
             </div>
           </div>
-          <span class="case-arrow">Expand case study →</span>
         </div>
-        <div class="case-visual">
-          <svg viewBox="0 0 340 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Jira box -->
-            <rect x="20" y="75" width="80" height="50" rx="6" fill="#e8f0ee" stroke="#4a7c6f" stroke-width="1.5"/>
-            <text x="60" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#2d5a4e" font-weight="600">JIRA</text>
-            <text x="60" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Tickets · Sprints</text>
-            <!-- Roadmap box -->
-            <rect x="20" y="145" width="80" height="40" rx="6" fill="#f3efe9" stroke="#b8a890" stroke-width="1.5"/>
-            <text x="60" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#3d3629" font-weight="600">Roadmap</text>
-            <text x="60" y="176" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Comments · Context</text>
-            <!-- Sprint cal box -->
-            <rect x="20" y="20" width="80" height="40" rx="6" fill="#f3efe9" stroke="#b8a890" stroke-width="1.5"/>
-            <text x="60" y="38" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#3d3629" font-weight="600">Sprint Cal</text>
-            <text x="60" y="51" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Dates · Capacity</text>
-            <!-- Arrows to LLM -->
-            <line x1="100" y1="40" x2="148" y2="88" stroke="#b8a890" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
-            <line x1="100" y1="100" x2="148" y2="100" stroke="#4a7c6f" stroke-width="1.5" marker-end="url(#arr2)"/>
-            <line x1="100" y1="160" x2="148" y2="112" stroke="#b8a890" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
-            <!-- LLM box -->
-            <rect x="150" y="72" width="80" height="56" rx="8" fill="#2d5a4e" stroke="none"/>
-            <text x="190" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="white" font-weight="600">LLM</text>
-            <text x="190" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(255,255,255,0.7)">Synthesize + Send</text>
-            <!-- Arrow to output -->
-            <line x1="230" y1="100" x2="268" y2="100" stroke="#4a7c6f" stroke-width="1.5" marker-end="url(#arr2)"/>
-            <!-- Slack/email box -->
-            <rect x="270" y="72" width="60" height="56" rx="6" fill="#e8f0ee" stroke="#4a7c6f" stroke-width="1.5"/>
-            <text x="300" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#2d5a4e" font-weight="600">Slack</text>
-            <text x="300" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Auto-reply</text>
-            <defs>
-              <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                <path d="M2 1L8 5L2 9" fill="none" stroke="#b8a890" stroke-width="1.5" stroke-linecap="round"/>
-              </marker>
-              <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                <path d="M2 1L8 5L2 9" fill="none" stroke="#4a7c6f" stroke-width="1.5" stroke-linecap="round"/>
-              </marker>
-            </defs>
-          </svg>
-        </div>
-      </div>
-      <div class="case-expand" id="expand-llm">
-        <div class="expand-grid">
-          <div>
-            <div class="expand-section-title">The Problem</div>
-            <p class="expand-body">Four PMs were collectively fielding ~40 inbound status questions per week from Sales, Ops, CS, and the C-suite, with no formal intake process. Each response required manually pulling Jira, cross-referencing the roadmap, calculating queue position using point/effort equivalencies, and writing a personalized reply. That was 5–8 hours of unplanned interrupt time weekly.</p>
-            <div class="expand-section-title" style="margin-top:1.5rem">My Role</div>
-            <ul class="expand-bullets">
-              <li>Problem diagnosis: audited 6 weeks of inbound Slack and email threads to categorize question types</li>
-              <li>Data architecture: mapped the three source-of-truth systems the LLM needed to query (Jira, roadmap doc, sprint calendar)</li>
-              <li>API integration & prompt design: worked alongside engineering on Jira API integration and LLM prompt templates</li>
-              <li>Output design: defined the structured Slack/email response format including sprint dates, effort estimates, and reprioritization context</li>
-              <li>Rollout: ran a two-week pilot with CS and Ops teams; added confidence threshold routing before company-wide launch</li>
-            </ul>
-          </div>
-          <div>
-            <div class="expand-section-title">What I Learned</div>
-            <div class="learned-card">
-              <strong>The bottleneck was translation, not access</strong>
-              <p>The data existed in three places. The problem was that converting it into a useful answer required PM context stakeholders didn't have. That's exactly what an LLM handles well.</p>
+        <div class="case-expand" id="expand-llm">
+          <div class="expand-grid">
+            <div>
+              <div class="expand-section-title">The Problem</div>
+              <p class="expand-body">Four PMs were collectively fielding ~40 inbound status questions per week from Sales, Ops, CS, and the C-suite, with no formal intake process. Each response required manually pulling Jira, cross-referencing the roadmap, calculating queue position using point/effort equivalencies, and writing a personalized reply. That was 5–8 hours of unplanned interrupt time weekly.</p>
+              <div class="expand-section-title" style="margin-top:1.5rem">My Role</div>
+              <ul class="expand-bullets">
+                <li>Problem diagnosis: audited 6 weeks of inbound Slack and email threads to categorize question types</li>
+                <li>Data architecture: mapped the three source-of-truth systems the LLM needed to query (Jira, roadmap doc, sprint calendar)</li>
+                <li>API integration &amp; prompt design: worked alongside engineering on Jira API integration and LLM prompt templates</li>
+                <li>Output design: defined the structured Slack/email response format including sprint dates, effort estimates, and reprioritization context</li>
+                <li>Rollout: ran a two-week pilot with CS and Ops teams; added confidence threshold routing before company-wide launch</li>
+              </ul>
             </div>
-            <div class="learned-card">
-              <strong>Confidence thresholds matter more than accuracy averages</strong>
-              <p>Early versions had a higher auto-response rate. A few wrong answers caused more trust damage than the time savings justified. Adding a routing threshold for low-confidence cases was the most important quality decision.</p>
-            </div>
-            <div class="learned-card">
-              <strong>Documentation quality becomes a product dependency</strong>
-              <p>The system was only as good as the ticket comments it indexed. This created an unexpected forcing function: PMs became more disciplined about logging reprioritization rationale because they knew it would surface directly to stakeholders.</p>
+            <div>
+              <div class="expand-section-title">What I Learned</div>
+              <div class="learned-card">
+                <strong>The bottleneck was translation, not access</strong>
+                <p>The data existed in three places. The problem was that converting it into a useful answer required PM context stakeholders didn't have. That's exactly what an LLM handles well.</p>
+              </div>
+              <div class="learned-card">
+                <strong>Confidence thresholds matter more than accuracy averages</strong>
+                <p>Early versions had a higher auto-response rate. A few wrong answers caused more trust damage than the time savings justified. Adding a routing threshold for low-confidence cases was the most important quality decision.</p>
+              </div>
+              <div class="learned-card">
+                <strong>Documentation quality becomes a product dependency</strong>
+                <p>The system was only as good as the ticket comments it indexed. This created an unexpected forcing function: PMs became more disciplined about logging reprioritization rationale because they knew it would surface directly to stakeholders.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- CASE 2: Pricing Tool -->
-      <div class="case-card" data-case="pricing">
-        <span class="case-tag">Revenue · Growth</span>
-        <h3 class="case-title">Self-Serve Move Pricing Tool</h3>
-        <p class="case-desc">Replaced manual Excel quotes with a public-facing estimator covering 4 countries, 3 move types, distance calculation, and vehicle compliance rules. Lead capture and demand signal tracking built in from day one.</p>
-        <div class="case-metrics">
-          <div class="case-metric">
-            <div class="case-metric-num">Days→Min</div>
-            <div class="case-metric-label">Quote turnaround (projected)</div>
+      <!-- ROW 2: Pricing + Ops (side by side, shared row, each with own expand) -->
+      <div class="case-row">
+        <div class="case-row-cards">
+          <div class="case-card" data-case="pricing">
+            <span class="case-tag">Revenue · Growth</span>
+            <h3 class="case-title">Self-Serve Move Pricing Tool</h3>
+            <p class="case-desc">Replaced manual Excel quotes with a public-facing estimator covering 4 countries, 3 move types, distance calculation, and vehicle compliance rules. Lead capture and demand signal tracking built in from day one.</p>
+            <div class="case-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">Days→Min</div>
+                <div class="case-metric-label">Quote turnaround (projected)</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">4</div>
+                <div class="case-metric-label">Markets supported</div>
+              </div>
+            </div>
+            <span class="case-arrow">Expand case study →</span>
           </div>
-          <div class="case-metric">
-            <div class="case-metric-num">4</div>
-            <div class="case-metric-label">Markets supported</div>
+          <div class="case-card" data-case="ops">
+            <span class="case-tag">Operations · 0→1</span>
+            <h3 class="case-title">Customer Operations: 0 to 30-Person Team</h3>
+            <p class="case-desc">Built the entire Customer Operations function at Draiver from scratch: team, CRM, dashboards, knowledge base, SOPs, and a data bridge to product that turned support tickets into a product feedback loop.</p>
+            <div class="case-metrics">
+              <div class="case-metric">
+                <div class="case-metric-num">70%</div>
+                <div class="case-metric-label">Support volume reduction</div>
+              </div>
+              <div class="case-metric">
+                <div class="case-metric-num">50%</div>
+                <div class="case-metric-label">FCR improvement</div>
+              </div>
+            </div>
+            <span class="case-arrow">Expand case study →</span>
           </div>
         </div>
-        <span class="case-arrow">Expand case study →</span>
-      </div>
-      <div class="case-expand" id="expand-pricing">
-        <div class="expand-grid">
-          <div>
-            <div class="expand-section-title">The Problem</div>
-            <p class="expand-body">Prospective clients had no way to understand Draiver's pricing without scheduling a sales call. Every quote was built manually in Excel: pulling rate cards, calculating distances, applying the right country/move-type price list. There was no self-serve option, no structured lead capture, and no data on what the market was actually asking for.</p>
-            <div class="expand-section-title" style="margin-top:1.5rem">How It Worked</div>
-            <ul class="expand-bullets">
-              <li>User inputs Point A and Point B → distance calculated automatically</li>
-              <li>Selects move type (Fleet, Consumer, Automatic Retail) and country</li>
-              <li>Flags vehicle compliance requirements (CDL / DOT medical card)</li>
-              <li>The system queries the back-end price list for the selected move type, country, and compliance flags and returns a single calculated estimate</li>
-              <li>Price lists are managed directly by the sales team via a back-end interface, so adjustments can be made immediately without a dev release</li>
-              <li>User enters name and email → quote stored and tied to their lead record</li>
-              <li>CTA to book a sales call or submit a move request directly</li>
-            </ul>
+        <div class="case-expand" id="expand-pricing">
+          <div class="expand-grid">
+            <div>
+              <div class="expand-section-title">The Problem</div>
+              <p class="expand-body">Prospective clients had no way to understand Draiver's pricing without scheduling a sales call. Every quote was built manually in Excel: pulling rate cards, calculating distances, applying the right country/move-type price list. There was no self-serve option, no structured lead capture, and no data on what the market was actually asking for.</p>
+              <div class="expand-section-title" style="margin-top:1.5rem">How It Worked</div>
+              <ul class="expand-bullets">
+                <li>User inputs Point A and Point B → distance calculated automatically</li>
+                <li>Selects move type (Fleet, Consumer, Automatic Retail) and country</li>
+                <li>Flags vehicle compliance requirements (CDL / DOT medical card)</li>
+                <li>The system queries the back-end price list for the selected move type, country, and compliance flags and returns a single calculated estimate</li>
+                <li>Price lists are managed directly by the sales team via a back-end interface, so adjustments can be made immediately without a dev release</li>
+                <li>User enters name and email → quote stored and tied to their lead record</li>
+                <li>CTA to book a sales call or submit a move request directly</li>
+              </ul>
+            </div>
+            <div>
+              <div class="expand-section-title">Projected Value</div>
+              <div class="learned-card">
+                <strong>Quote turnaround: days → under 2 minutes</strong>
+                <p>Eliminates the Excel quoting step for initial estimates. Projected ~20–30 min saved per qualified lead for the sales team.</p>
+              </div>
+              <div class="learned-card">
+                <strong>Demand signal for pricing review</strong>
+                <p>First-ever structured view of which routes, move types, and markets generate the most exploration vs. conversion. A direct input for Sales and Finance pricing reviews.</p>
+              </div>
+              <div class="learned-card">
+                <strong>Every lead arrives with a stored quote</strong>
+                <p>Salespeople enter conversations knowing what the client priced, what estimate they saw, and what compliance flags they selected. No cold starts.</p>
+              </div>
+              <p class="expand-body" style="font-size:0.8rem;color:var(--ink-300);margin-top:0.5rem">Note: tool launched in testing phase. Figures are projected; actuals to be updated as data accumulates.</p>
+            </div>
           </div>
-          <div>
-            <div class="expand-section-title">Projected Value</div>
-            <div class="learned-card">
-              <strong>Quote turnaround: days → under 2 minutes</strong>
-              <p>Eliminates the Excel quoting step for initial estimates. Projected ~20–30 min saved per qualified lead for the sales team.</p>
+        </div>
+        <div class="case-expand" id="expand-ops">
+          <div class="expand-grid">
+            <div>
+              <div class="expand-section-title">The Problem</div>
+              <p class="expand-body">Draiver was scaling rapidly with no formal Customer Operations structure. There was no CRM, no knowledge base, no SOPs, and no consistent way to handle support tickets. The product and ops teams had no visibility into what users were struggling with, and there was no mechanism to turn that signal into product improvements.</p>
+              <div class="expand-section-title" style="margin-top:1.5rem">What I Built</div>
+              <ul class="expand-bullets">
+                <li>Hired and onboarded a 30+ person support team in a high-growth startup environment</li>
+                <li>Designed and deployed the CRM from scratch: custom dashboards, automated reporting, ticket volume and resolution tracking</li>
+                <li>Built the company's first internal and user-facing knowledge base from cross-functional user interviews and standardized SOPs</li>
+                <li>Created a data bridge between CRM and Product that surfaced UX friction points as product requirements, reducing registration support volume by 70%</li>
+                <li>Synthesized weekly QA intelligence for C-suite, improving procedural accuracy by 16%</li>
+              </ul>
             </div>
-            <div class="learned-card">
-              <strong>Demand signal for pricing review</strong>
-              <p>First-ever structured view of which routes, move types, and markets generate the most exploration vs. conversion. A direct input for Sales and Finance pricing reviews.</p>
+            <div>
+              <div class="expand-section-title">Why It Mattered</div>
+              <div class="learned-card">
+                <strong>Ops as the earliest product signal</strong>
+                <p>A 70% drop in registration support volume didn't come from better scripts. It came from identifying root-cause UX friction points and turning them into product fixes. The ops function was the most direct feedback loop into the product roadmap at that stage.</p>
+              </div>
+              <div class="learned-card">
+                <strong>The CRM is a product too</strong>
+                <p>Designing the CRM and dashboard infrastructure around the GTM team's actual decision-making needs, not just ticket volume, is what made it stick. It's still the system the team runs on today.</p>
+              </div>
+              <div class="learned-card">
+                <strong>From ops to product: the through-line</strong>
+                <p>This role taught me that the transition from ops management to product management isn't a pivot. It's an evolution. The same instinct that builds a good SOP builds a good product spec.</p>
+              </div>
             </div>
-            <div class="learned-card">
-              <strong>Every lead arrives with a stored quote</strong>
-              <p>Salespeople enter conversations knowing what the client priced, what estimate they saw, and what compliance flags they selected. No cold starts.</p>
-            </div>
-            <p class="expand-body" style="font-size:0.8rem;color:var(--ink-300);margin-top:0.5rem">Note: tool launched in testing phase. Figures are projected; actuals to be updated as data accumulates.</p>
           </div>
         </div>
       </div>
 
-      <!-- CASE 3: Ops Buildout -->
-      <div class="case-card" data-case="ops">
-        <span class="case-tag">Operations · 0→1</span>
-        <h3 class="case-title">Customer Operations: 0 to 30-Person Team</h3>
-        <p class="case-desc">Built the entire Customer Operations function at Draiver from scratch: team, CRM, dashboards, knowledge base, SOPs, and a data bridge to product that turned support tickets into a product feedback loop.</p>
-        <div class="case-metrics">
-          <div class="case-metric">
-            <div class="case-metric-num">70%</div>
-            <div class="case-metric-label">Support volume reduction</div>
-          </div>
-          <div class="case-metric">
-            <div class="case-metric-num">50%</div>
-            <div class="case-metric-label">FCR improvement</div>
-          </div>
-        </div>
-        <span class="case-arrow">Expand case study →</span>
-      </div>
-      <div class="case-expand" id="expand-ops">
-        <div class="expand-grid">
-          <div>
-            <div class="expand-section-title">The Problem</div>
-            <p class="expand-body">Draiver was scaling rapidly with no formal Customer Operations structure. There was no CRM, no knowledge base, no SOPs, and no consistent way to handle support tickets. The product and ops teams had no visibility into what users were struggling with, and there was no mechanism to turn that signal into product improvements.</p>
-            <div class="expand-section-title" style="margin-top:1.5rem">What I Built</div>
-            <ul class="expand-bullets">
-              <li>Hired and onboarded a 30+ person support team in a high-growth startup environment</li>
-              <li>Designed and deployed the CRM from scratch: custom dashboards, automated reporting, ticket volume and resolution tracking</li>
-              <li>Built the company's first internal and user-facing knowledge base from cross-functional user interviews and standardized SOPs</li>
-              <li>Created a data bridge between CRM and Product that surfaced UX friction points as product requirements, reducing registration support volume by 70%</li>
-              <li>Synthesized weekly QA intelligence for C-suite, improving procedural accuracy by 16%</li>
-            </ul>
-          </div>
-          <div>
-            <div class="expand-section-title">Why It Mattered</div>
-            <div class="learned-card">
-              <strong>Ops as the earliest product signal</strong>
-              <p>A 70% drop in registration support volume didn't come from better scripts. It came from identifying root-cause UX friction points and turning them into product fixes. The ops function was the most direct feedback loop into the product roadmap at that stage.</p>
-            </div>
-            <div class="learned-card">
-              <strong>The CRM is a product too</strong>
-              <p>Designing the CRM and dashboard infrastructure around the GTM team's actual decision-making needs, not just ticket volume, is what made it stick. It's still the system the team runs on today.</p>
-            </div>
-            <div class="learned-card">
-              <strong>From ops to product: the through-line</strong>
-              <p>This role taught me that the transition from ops management to product management isn't a pivot. It's an evolution. The same instinct that builds a good SOP builds a good product spec.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    </div><!-- end .case-rows -->
   </div>
 </section>
 
@@ -1049,6 +1141,15 @@
         <a href="https://docs.google.com/document/d/1SOOqTA198j-ZbEpuwSx8sr-Yv-nwCIKEA7ryUVVRBRE/edit?tab=t.0" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:0.8rem;font-weight:500;color:var(--accent);text-decoration:none;letter-spacing:0.02em;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
           Read the case study ↗
         </a>
+        <div style="display:flex;gap:0.75rem;margin-top:0.6rem;flex-wrap:wrap;">
+          <a href="https://github.com/fernanda-flva/job-hunter-os" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://fernanda-flva.github.io/job-hunter-os" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
+            ↗ Live Demo
+          </a>
+        </div>
       </div>
 
       <div class="project-card">
@@ -1061,6 +1162,15 @@
         <a href="https://docs.google.com/document/d/1yV3DmulCo5nZtR7b2O-dRrZl0pGWAHhP6KdX-Q8gfNg/edit?tab=t.0" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:0.8rem;font-weight:500;color:var(--accent);text-decoration:none;letter-spacing:0.02em;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
           Read the case study ↗
         </a>
+        <div style="display:flex;gap:0.75rem;margin-top:0.6rem;flex-wrap:wrap;">
+          <a href="https://github.com/fernanda-flva/interview-case-coach" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://fernanda-flva.github.io/interview-case-coach/case-coach.html" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
+            ↗ Live Demo
+          </a>
+        </div>
       </div>
 
       <div class="project-card">
@@ -1074,11 +1184,14 @@
 
       <div class="project-card">
         <div class="project-icon">📚</div>
-        <div class="project-title">Anthropic / Claude Courses</div>
-        <p class="project-desc">Actively working through Anthropic's course curriculum: prompt engineering, AI integration patterns, and practical applications of LLMs in product and workflow contexts. Relevant not just to my PM role but to how I structure and automate my own day-to-day work.</p>
+        <div class="project-title">AI Certifications & Coursework</div>
+        <p class="project-desc">Actively building technical depth in AI — completing Anthropic's prompt engineering and LLM integration curriculum, and recently earned the Databricks Academy certification in AI Agent Fundamentals (score 80%+), covering agentic workflows, multi-agent systems, and enterprise AI on the Mosaic AI platform. Relevant to how I think about AI product implementation, not just theory.</p>
         <div class="project-tech">
-          <span>Prompt engineering</span><span>LLM patterns</span><span>AI product thinking</span>
+          <span>Prompt engineering</span><span>LLM patterns</span><span>AI Agents</span><span>Databricks certified</span>
         </div>
+        <a href="https://www.credential.net/0b4c72fd-33e6-4176-8a2c-e6d2b67e46ad" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:0.8rem;font-weight:500;color:var(--accent);text-decoration:none;letter-spacing:0.02em;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+          View certificate ↗
+        </a>
       </div>
 
       <div class="project-card">
@@ -1096,6 +1209,78 @@
         <p class="project-desc">Fluent in English and Spanish, with conversational German (Goethe B1). Having built and scaled products across the U.S., Mexico, Canada, and Brazil, working across languages and cultures isn't a line on a resume. It's how the actual work got done. International product expansion is something I understand from direct experience, not theory.</p>
         <div class="project-tech">
           <span>English</span><span>Spanish</span><span>German (B1)</span><span>4 markets</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section id="recommendations">
+  <div class="section-inner">
+    <p class="section-label">Recommendations</p>
+    <h2 class="section-title">What colleagues say.</h2>
+    <p class="section-intro">From people who worked with me directly — managers, peers, and cross-functional leaders — across operations and product.</p>
+
+    <div class="rec-grid">
+
+      <!-- Dan Rizzo — direct manager, COO -->
+      <div class="rec-card rec-featured">
+        <div class="rec-quote-mark">"</div>
+        <blockquote class="rec-body">
+          When we needed someone to lead our initial expansion into Mexico — a pilot project that became an enabler of the company's acquisition — Fernanda was the one we put on the ground. That assignment required a real ownership mentality and the ability to perform under serious scrutiny from multiple stakeholders.
+          <br><br>
+          From there, Fernanda built our Support Operations department from zero to a team of 30+ staff. She built the infrastructure that became the backbone not just for support, but for operations and product/engineering teams to standardize their own processes.
+          <br><br>
+          A lot of ops leaders focus only on process. Fernanda thinks about the business and how the process fits into the broader strategy. She has a real grasp of unit economics and knows how to connect the dots between operational friction, product requirements, and financial impact.
+        </blockquote>
+        <div class="rec-attribution">
+          <div class="rec-person">
+            <div class="rec-name">Dan Rizzo</div>
+            <div class="rec-title">Chief Operating Officer, DRAIVER · Former Direct Manager</div>
+          </div>
+          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">
+            Verify on LinkedIn ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Kevin Burke — CTO, cross-functional peer -->
+      <div class="rec-card">
+        <div class="rec-quote-mark">"</div>
+        <blockquote class="rec-body">
+          What sets Fernanda apart is her remarkable role flexibility. She has seamlessly navigated multiple business units — stepping in as an individual contributor when the work demands deep, hands-on focus, and shifting into a leadership role when teams need direction and alignment.
+          <br><br>
+          She also has a genuine desire to understand not just the problem she's solving, but the product itself. She digs in, asks the right questions, and builds a thorough understanding of the business and the people involved — making her an invaluable partner to every cross-functional team she works with.
+        </blockquote>
+        <div class="rec-attribution">
+          <div class="rec-person">
+            <div class="rec-name">Kevin Burke</div>
+            <div class="rec-title">Chief Technology Officer, DRAIVER · Cross-functional Peer</div>
+          </div>
+          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">
+            Verify on LinkedIn ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Ryan Auf Der Heide — CPO, direct manager -->
+      <div class="rec-card">
+        <div class="rec-quote-mark">"</div>
+        <blockquote class="rec-body">
+          Fernanda brings strong product thinking, clear strategy, and a deep focus on user needs, consistently driving better outcomes and adoption.
+          <br><br>
+          She navigates complex priorities well, balancing new features with system stability, and is excellent at spotting process improvements that boost team efficiency and delivery. Fernanda actively looks for opportunities to add value, even in unfamiliar spaces, and steps up to make an impact.
+        </blockquote>
+        <div class="rec-attribution">
+          <div class="rec-person">
+            <div class="rec-name">Ryan Auf Der Heide</div>
+            <div class="rec-title">Chief Product Officer, The Good Game · Former Direct Manager</div>
+          </div>
+          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">
+            Verify on LinkedIn ↗
+          </a>
         </div>
       </div>
 
@@ -1151,21 +1336,29 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
 
-    // Case study expand/collapse via data-case attribute
+    // Case study expand/collapse — opens directly below clicked card's row
     document.querySelectorAll('.case-card[data-case]').forEach(function(card) {
       card.style.cursor = 'pointer';
       card.addEventListener('click', function() {
         var id = card.getAttribute('data-case');
-        var el = document.getElementById('expand-' + id);
-        if (!el) return;
-        var isOpen = el.classList.contains('open');
+        var targetPanel = document.getElementById('expand-' + id);
+        if (!targetPanel) return;
+        var isOpen = targetPanel.classList.contains('open');
+
+        // Close all panels everywhere
         document.querySelectorAll('.case-expand').forEach(function(e) {
           e.classList.remove('open');
         });
+        // Remove active state from all cards
+        document.querySelectorAll('.case-card[data-case]').forEach(function(c) {
+          c.classList.remove('active');
+        });
+
         if (!isOpen) {
-          el.classList.add('open');
+          targetPanel.classList.add('open');
+          card.classList.add('active');
           setTimeout(function() {
-            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 60);
         }
       });
@@ -1181,14 +1374,9 @@
       });
     }, { threshold: 0.08 });
 
-    document.querySelectorAll('.stat-card, .skill-col, .project-card, .case-card').forEach(function(el) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    document.querySelectorAll('.fade-up').forEach(function(el) {
       observer.observe(el);
     });
 
   });
 </script>
-</body>
-</html>
