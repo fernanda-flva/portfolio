@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work · Maria Fernanda Flores</title>
+<meta name="description" content="Case studies in AI implementation, marketplace operations, and product strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand-50: #faf8f5; --sand-100: #f3efe9; --sand-200: #e8e1d6;
+    --sand-300: #d4c9b8; --sand-400: #b8a890; --sand-500: #9a8870;
+    --ink-900: #1c1814; --ink-700: #3d3629; --ink-500: #6b6257; --ink-300: #9e9589;
+    --accent: #2d5a4e; --accent-light: #e8f0ee; --accent-mid: #4a7c6f;
+    --white: #ffffff;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --nav-h: 68px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--sand-50); color: var(--ink-700); line-height: 1.7; font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h); background: rgba(250,248,245,0.92);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--sand-200);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 5vw;
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 1.15rem; color: var(--ink-900); text-decoration: none; letter-spacing: 0.01em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-500); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  .page-header {
+    padding: calc(var(--nav-h) + 60px) 5vw 60px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  .section-title { font-family: var(--font-display); font-size: clamp(2rem, 3vw, 2.8rem); color: var(--ink-900); line-height: 1.15; margin-bottom: 1rem; }
+  .section-intro { font-size: 1rem; color: var(--ink-500); max-width: 640px; line-height: 1.75; }
+
+  /* FILTERS */
+  .filters-bar {
+    max-width: 1100px; margin: 0 auto; padding: 0 5vw 40px;
+    display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;
+  }
+  .filter-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-300); margin-right: 0.4rem; }
+  .filter-btn {
+    font-size: 0.78rem; font-weight: 500; padding: 0.35rem 0.9rem;
+    border-radius: 99px; border: 1px solid var(--sand-300);
+    background: var(--white); color: var(--ink-500);
+    cursor: pointer; transition: all 0.18s; letter-spacing: 0.03em;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+  /* WORK GRID */
+  .work-grid {
+    max-width: 1100px; margin: 0 auto; padding: 0 5vw 100px;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-card {
+    background: var(--white); border: 1px solid var(--sand-200); border-radius: 10px;
+    padding: 2.2rem; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .work-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .work-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.07); border-color: var(--sand-300); }
+  .work-card:hover::before { transform: scaleX(1); }
+  .work-card.hidden { display: none; }
+
+  .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .tag {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.25rem 0.65rem; border-radius: 99px;
+  }
+  .tag-domain { background: var(--accent-light); color: var(--accent); }
+  .tag-type { background: var(--sand-100); color: var(--ink-500); }
+
+  .card-title { font-family: var(--font-display); font-size: 1.3rem; color: var(--ink-900); line-height: 1.25; margin-bottom: 0.7rem; }
+  .work-card.featured .card-title { font-size: 1.6rem; }
+  .card-desc { font-size: 0.88rem; color: var(--ink-500); line-height: 1.7; margin-bottom: 1.5rem; flex: 1; }
+
+  .card-metrics { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .metric-num { font-family: var(--font-display); font-size: 1.4rem; color: var(--accent); line-height: 1; }
+  .metric-label { font-size: 0.68rem; color: var(--ink-300); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem; }
+
+  .card-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 500; color: var(--accent); margin-top: auto; letter-spacing: 0.02em; transition: gap 0.2s; }
+  .work-card:hover .card-cta { gap: 10px; }
+
+  /* visual panel for featured card */
+  .card-visual {
+    background: var(--sand-100); border-radius: 6px; height: 220px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .card-visual svg { width: 90%; height: 90%; }
+
+  /* DETAIL PANEL */
+  .detail-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(28,24,20,0.5); backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .detail-overlay.open { opacity: 1; pointer-events: all; }
+
+  .detail-panel {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 201;
+    width: min(680px, 100vw);
+    background: var(--white); overflow-y: auto;
+    transform: translateX(100%); transition: transform 0.3s ease;
+    box-shadow: -4px 0 40px rgba(0,0,0,0.1);
+  }
+  .detail-panel.open { transform: translateX(0); }
+
+  .panel-inner { padding: 3rem 2.5rem 4rem; }
+  .panel-close {
+    position: fixed; top: 1.2rem; right: 1.2rem; z-index: 202;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--white); border: 1px solid var(--sand-200);
+    display: none; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; color: var(--ink-500);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+  }
+  .panel-close.visible { display: flex; }
+  .panel-close:hover { background: var(--sand-100); }
+
+  .panel-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .panel-title { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink-900); line-height: 1.2; margin-bottom: 1rem; }
+  .panel-desc { font-size: 0.95rem; color: var(--ink-500); line-height: 1.75; margin-bottom: 2rem; }
+
+  .panel-metrics { display: flex; gap: 2rem; flex-wrap: wrap; padding: 1.5rem; background: var(--sand-50); border-radius: 8px; margin-bottom: 2rem; }
+  .panel-metric .metric-num { font-size: 1.6rem; }
+
+  .panel-section-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-300); margin-bottom: 0.75rem; margin-top: 2rem; }
+  .panel-section-title:first-of-type { margin-top: 0; }
+  .panel-body { font-size: 0.92rem; color: var(--ink-700); line-height: 1.8; margin-bottom: 1rem; }
+  .panel-bullets { list-style: none; }
+  .panel-bullets li {
+    font-size: 0.9rem; color: var(--ink-700); line-height: 1.65;
+    padding: 0.5rem 0 0.5rem 1.2rem; position: relative;
+    border-bottom: 1px solid var(--sand-100);
+  }
+  .panel-bullets li:last-child { border-bottom: none; }
+  .panel-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+
+  .learned-card { background: var(--sand-50); border: 1px solid var(--sand-200); border-radius: 6px; padding: 1.2rem; margin-bottom: 0.75rem; }
+  .learned-card strong { display: block; font-size: 0.85rem; color: var(--ink-900); margin-bottom: 0.3rem; }
+  .learned-card p { font-size: 0.82rem; color: var(--ink-500); line-height: 1.65; }
+
+  .panel-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--sand-200); }
+  .panel-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; font-weight: 500; color: var(--ink-500);
+    text-decoration: none; padding: 0.35rem 0.85rem;
+    border: 1px solid var(--sand-300); border-radius: 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .panel-link:hover { border-color: var(--accent); color: var(--accent); }
+  .panel-link.primary { background: var(--accent); color: var(--white); border-color: var(--accent); }
+  .panel-link.primary:hover { background: var(--accent-mid); }
+
+  footer {
+    background: var(--ink-900); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 5vw; display: flex; justify-content: space-between; align-items: center;
+  }
+  footer a { color: var(--sand-400); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+  footer a:hover { color: var(--white); }
+  footer p { font-size: 0.78rem; color: var(--sand-500); }
+
+  @media (max-width: 900px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .detail-panel { width: 100vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">M. Fernanda Flores</a>
+  <ul class="nav-links">
+    <li><a href="index.html">About</a></li>
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="section-label">Work</p>
+  <h1 class="section-title">Selected projects.</h1>
+  <p class="section-intro">A mix of product work, side projects, and things I built because I was curious. Click any card to read the full story.</p>
+</div>
+
+<div class="filters-bar">
+  <span class="filter-label">Filter by</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="product">Product Management</button>
+  <button class="filter-btn" data-filter="ops">Operations</button>
+  <button class="filter-btn" data-filter="ai">AI / Automation</button>
+  <button class="filter-btn" data-filter="strategy">Strategy</button>
+  <button class="filter-btn" data-filter="personal">Personal Projects</button>
+</div>
+
+<div class="work-grid">
+
+  <!-- LLM SYSTEM -->
+  <div class="work-card" data-categories="product ai" data-id="llm">
+    <div class="card-tags">
+      <span class="tag tag-domain">AI · Automation</span>
+      <span class="tag tag-type">Product · Work</span>
+    </div>
+    <h2 class="card-title">Jira-Integrated LLM System for Roadmap Visibility</h2>
+    <p class="card-desc">Built a system that auto-generated roadmap status responses for stakeholders: queue position, sprint dates, effort estimates, and reprioritization context. Eliminated PM interrupt work on routine status questions entirely.</p>
+    <div class="card-metrics">
+      <div><div class="metric-num">30%</div><div class="metric-label">Fewer inbound inquiries</div></div>
+      <div><div class="metric-num">~40</div><div class="metric-label">Questions/week eliminated</div></div>
+      <div><div class="metric-num">&lt;2 min</div><div class="metric-label">Response time (was 8–12 min)</div></div>
+    </div>
+    <span class="card-cta">Read case study →</span>
+  </div>
+
+  <!-- MEXICO PILOT -->
+  <div class="work-card" data-categories="strategy ops" data-id="mexico">
+    <div class="card-tags">
+      <span class="tag tag-domain">Consulting · Market Expansion</span>
+      <span class="tag tag-type">Strategy · Work</span>
+    </div>
+    <h2 class="card-title">Mexico Market Pilot: The Engagement That Became a Career</h2>
+    <p class="card-desc">As an external consultant, I was sent to lead Draiver's first Mexico market expansion — a boots-on-the-ground pilot tied to an acquisition. The pilot succeeded. Draiver asked me to join full-time. I said yes.</p>
+    <div class="card-metrics">
+      <div><div class="metric-num">230%</div><div class="metric-label">Throughput increase</div></div>
+      <div><div class="metric-num">1→∞</div><div class="metric-label">Markets entered</div></div>
+      <div><div class="metric-num">Hired</div><div class="metric-label">Consultant to full-time</div></div>
+    </div>
+    <span class="card-cta">Read case study →</span>
+  </div>
+
+  <!-- PRICING TOOL -->
+  <div class="work-card" data-categories="product strategy" data-id="pricing">
+    <div class="card-tags">
+      <span class="tag tag-domain">Revenue · Growth</span>
+      <span class="tag tag-type">Product · Work</span>
+    </div>
+    <h2 class="card-title">Self-Serve Move Pricing Tool</h2>
+    <p class="card-desc">Replaced manual Excel quotes with a public-facing estimator covering 4 countries, 3 move types, distance calculation, and vehicle compliance rules. Lead capture and demand signal tracking built in from day one.</p>
+    <div class="card-metrics">
+      <div><div class="metric-num">Days→Min</div><div class="metric-label">Quote turnaround</div></div>
+      <div><div class="metric-num">4</div><div class="metric-label">Markets supported</div></div>
+    </div>
+    <span class="card-cta">Read case study →</span>
+  </div>
+
+  <!-- CUSTOMER OPS -->
+  <div class="work-card" data-categories="ops product" data-id="ops">
+    <div class="card-tags">
+      <span class="tag tag-domain">Operations · 0→1</span>
+      <span class="tag tag-type">Ops · Work</span>
+    </div>
+    <h2 class="card-title">Customer Operations: 0 to 30-Person Team</h2>
+    <p class="card-desc">Built the entire Customer Operations function at Draiver from scratch: team, CRM, dashboards, knowledge base, SOPs, and a data bridge to product that turned support tickets into a product feedback loop.</p>
+    <div class="card-metrics">
+      <div><div class="metric-num">70%</div><div class="metric-label">Support volume reduction</div></div>
+      <div><div class="metric-num">50%</div><div class="metric-label">FCR improvement</div></div>
+    </div>
+    <span class="card-cta">Read case study →</span>
+  </div>
+
+  <!-- JOB HUNTER OS — personal -->
+  <div class="work-card" data-categories="personal ai" data-id="jobhunter">
+    <div class="card-tags">
+      <span class="tag tag-domain">AI · Product</span>
+      <span class="tag tag-type">Personal Project</span>
+    </div>
+    <h2 class="card-title">Job Hunter OS</h2>
+    <p class="card-desc">A single-file, AI-assisted job search workflow covering ATS scoring, resume tailoring, cover letter generation, cold outreach, and application tracking. Built for a Senior PM search in NYC. Every step carries data forward so nothing needs to be re-entered.</p>
+    <div class="card-tags" style="margin-top:1rem;margin-bottom:0">
+      <span class="tag tag-type">Claude API</span>
+      <span class="tag tag-type">Vanilla JS</span>
+      <span class="tag tag-type">Streaming</span>
+    </div>
+    <div style="display:flex;gap:0.6rem;margin-top:1.2rem;flex-wrap:wrap">
+      <a href="https://github.com/fernanda-flva/job-hunter-os" target="_blank" class="panel-link" onclick="event.stopPropagation()">GitHub ↗</a>
+      <a href="https://fernanda-flva.github.io/job-hunter-os" target="_blank" class="panel-link" onclick="event.stopPropagation()">Live Demo ↗</a>
+      <a href="https://docs.google.com/document/d/1SOOqTA198j-ZbEpuwSx8sr-Yv-nwCIKEA7ryUVVRBRE/edit?tab=t.0" target="_blank" class="panel-link" onclick="event.stopPropagation()">Case Study ↗</a>
+    </div>
+    <span class="card-cta" style="margin-top:1rem">Read full story →</span>
+  </div>
+
+  <!-- INTERVIEW CASE COACH — personal -->
+  <div class="work-card" data-categories="personal ai" data-id="casecoach">
+    <div class="card-tags">
+      <span class="tag tag-domain">AI · Tools</span>
+      <span class="tag tag-type">Personal Project</span>
+    </div>
+    <h2 class="card-title">Interview Case Coach</h2>
+    <p class="card-desc">A suite of three tools for decomposition-style case interview prep. Covers 12 scenarios with full logic flows, clarifying questions, strong/weak candidate signal grids, model answer dialogues, and an active practice tool with a 35-point readiness score.</p>
+    <div class="card-tags" style="margin-top:1rem;margin-bottom:0">
+      <span class="tag tag-type">Claude API</span>
+      <span class="tag tag-type">BizOps Framework</span>
+      <span class="tag tag-type">AI Feedback</span>
+    </div>
+    <div style="display:flex;gap:0.6rem;margin-top:1.2rem;flex-wrap:wrap">
+      <a href="https://github.com/fernanda-flva/interview-case-coach" target="_blank" class="panel-link" onclick="event.stopPropagation()">GitHub ↗</a>
+      <a href="https://fernanda-flva.github.io/interview-case-coach/case-coach.html" target="_blank" class="panel-link" onclick="event.stopPropagation()">Live Demo ↗</a>
+      <a href="https://docs.google.com/document/d/1yV3DmulCo5nZtR7b2O-dRrZl0pGWAHhP6KdX-Q8gfNg/edit?tab=t.0" target="_blank" class="panel-link" onclick="event.stopPropagation()">Case Study ↗</a>
+    </div>
+    <span class="card-cta" style="margin-top:1rem">Read full story →</span>
+  </div>
+
+  <!-- AI CERTS — personal -->
+  <div class="work-card" data-categories="personal ai" data-id="certs">
+    <div class="card-tags">
+      <span class="tag tag-domain">AI · Learning</span>
+      <span class="tag tag-type">Personal</span>
+    </div>
+    <h2 class="card-title">AI Certifications & Coursework</h2>
+    <p class="card-desc">Databricks Academy certification in AI Agent Fundamentals (80%+), covering agentic workflows, multi-agent systems, and enterprise AI on Mosaic AI. Plus Anthropic's prompt engineering and LLM integration curriculum. Building technical depth because I think it's essential, not optional.</p>
+    <div class="card-tags" style="margin-top:1rem;margin-bottom:0">
+      <span class="tag tag-type">Prompt Engineering</span>
+      <span class="tag tag-type">AI Agents</span>
+      <span class="tag tag-type">Databricks Certified</span>
+    </div>
+    <div style="display:flex;gap:0.6rem;margin-top:1.2rem;">
+      <a href="https://www.credential.net/0b4c72fd-33e6-4176-8a2c-e6d2b67e46ad" target="_blank" class="panel-link" onclick="event.stopPropagation()">View Certificate ↗</a>
+    </div>
+    <span class="card-cta" style="margin-top:1rem">Read full story →</span>
+  </div>
+
+</div>
+
+<!-- DETAIL PANEL OVERLAY -->
+<div class="detail-overlay" id="overlay" onclick="closePanel()"></div>
+
+<!-- DETAIL PANEL -->
+<div class="detail-panel" id="detailPanel">
+  <button class="panel-close" id="panelClose" onclick="closePanel()">✕</button>
+  <div class="panel-inner" id="panelContent"></div>
+</div>
+
+<footer>
+  <p>© 2026 Maria Fernanda Flores · New York, NY</p>
+  <div style="display:flex;gap:1.5rem">
+    <a href="index.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="resume.html">Resume</a>
+  </div>
+</footer>
+
+<script>
+const cases = {
+  llm: {
+    tags: ['AI · Automation', 'Product · Work'],
+    title: 'Jira-Integrated LLM System for Roadmap Visibility',
+    desc: 'Built a system that auto-generated roadmap status responses for stakeholders: queue position, sprint dates, effort estimates, and reprioritization context. It eliminated PM interrupt work on routine status questions entirely.',
+    metrics: [
+      { num: '30%', label: 'Fewer inbound inquiries' },
+      { num: '~40', label: 'Questions/week eliminated' },
+      { num: '<2 min', label: 'Response time (was 8–12 min)' }
+    ],
+    problem: 'Four PMs were collectively fielding ~40 inbound status questions per week from Sales, Ops, CS, and the C-suite, with no formal intake process. Each response required manually pulling Jira, cross-referencing the roadmap, calculating queue position using point/effort equivalencies, and writing a personalized reply. That was 5–8 hours of unplanned interrupt time weekly.',
+    role: [
+      'Problem diagnosis: audited 6 weeks of inbound Slack and email threads to categorize question types',
+      'Data architecture: mapped the three source-of-truth systems the LLM needed to query (Jira, roadmap doc, sprint calendar)',
+      'API integration and prompt design: worked alongside engineering on Jira API integration and LLM prompt templates',
+      'Output design: defined the structured Slack/email response format including sprint dates, effort estimates, and reprioritization context',
+      'Rollout: ran a two-week pilot with CS and Ops teams; added confidence threshold routing before company-wide launch',
+    ],
+    learned: [
+      { title: 'The bottleneck was translation, not access', body: 'The data existed in three places. The problem was that converting it into a useful answer required PM context stakeholders didn\'t have. That\'s exactly what an LLM handles well.' },
+      { title: 'Confidence thresholds matter more than accuracy averages', body: 'Early versions had a higher auto-response rate. A few wrong answers caused more trust damage than the time savings justified. Adding a routing threshold for low-confidence cases was the most important quality decision.' },
+      { title: 'Documentation quality becomes a product dependency', body: 'The system was only as good as the ticket comments it indexed. This created an unexpected forcing function: PMs became more disciplined about logging reprioritization rationale because they knew it would surface directly to stakeholders.' },
+    ]
+  },
+  pricing: {
+    tags: ['Revenue · Growth', 'Product · Work'],
+    title: 'Self-Serve Move Pricing Tool',
+    desc: 'Replaced manual Excel quotes with a public-facing estimator covering 4 countries, 3 move types, distance calculation, and vehicle compliance rules.',
+    metrics: [
+      { num: 'Days→Min', label: 'Quote turnaround' },
+      { num: '4', label: 'Markets supported' }
+    ],
+    problem: 'Prospective clients had no way to understand pricing without scheduling a sales call. Every quote was built manually in Excel: pulling rate cards, calculating distances, applying the right country/move-type price list. No self-serve option, no structured lead capture, no data on what the market was actually asking for.',
+    role: [
+      'User inputs Point A and Point B, distance calculated automatically',
+      'Selects move type (Fleet, Consumer, Automatic Retail) and country',
+      'Flags vehicle compliance requirements (CDL / DOT medical card)',
+      'System queries the back-end price list and returns a single calculated estimate',
+      'Price lists managed by sales team via a back-end interface — no dev release required for adjustments',
+      'User enters name and email, quote stored and tied to their lead record',
+      'CTA to book a sales call or submit a move request directly',
+    ],
+    learned: [
+      { title: 'Quote turnaround: days → under 2 minutes', body: 'Eliminates the Excel quoting step for initial estimates. Projected ~20–30 min saved per qualified lead for the sales team.' },
+      { title: 'First-ever demand signal for pricing review', body: 'First structured view of which routes, move types, and markets generate the most exploration vs. conversion. A direct input for Sales and Finance pricing reviews.' },
+      { title: 'Every lead arrives with a stored quote', body: 'Salespeople enter conversations knowing what the client priced, what estimate they saw, and what compliance flags they selected. No cold starts.' },
+    ]
+  },
+  ops: {
+    tags: ['Operations · 0→1', 'Ops · Work'],
+    title: 'Customer Operations: 0 to 30-Person Team',
+    desc: 'Built the entire Customer Operations function at Draiver from scratch: team, CRM, dashboards, knowledge base, SOPs, and a data bridge to product.',
+    metrics: [
+      { num: '70%', label: 'Support volume reduction' },
+      { num: '50%', label: 'FCR improvement' },
+      { num: '16%', label: 'Procedural accuracy gain' }
+    ],
+    problem: 'Draiver was scaling rapidly with no formal Customer Operations structure. No CRM, no knowledge base, no SOPs, no consistent way to handle support tickets. Product and ops teams had no visibility into what users were struggling with, and there was no mechanism to turn that signal into product improvements.',
+    role: [
+      'Hired and onboarded a 30+ person support team in a high-growth startup environment',
+      'Designed and deployed the CRM from scratch: custom dashboards, automated reporting, ticket volume and resolution tracking',
+      'Built the company\'s first internal and user-facing knowledge base from cross-functional user interviews and standardized SOPs',
+      'Created a data bridge between CRM and Product that surfaced UX friction points as product requirements, reducing registration support volume by 70%',
+      'Synthesized weekly QA intelligence for C-suite, improving procedural accuracy by 16%',
+    ],
+    learned: [
+      { title: 'Ops as the earliest product signal', body: 'A 70% drop in registration support volume didn\'t come from better scripts. It came from identifying root-cause UX friction points and turning them into product fixes. The ops function was the most direct feedback loop into the product roadmap at that stage.' },
+      { title: 'The CRM is a product too', body: 'Designing the CRM around the GTM team\'s actual decision-making needs — not just ticket volume — is what made it stick. It\'s still the system the team runs on today.' },
+      { title: 'From ops to product: the through-line', body: 'The transition from ops management to product management isn\'t a pivot. It\'s an evolution. The same instinct that builds a good SOP builds a good product spec.' },
+    ]
+  },
+  mexico: {
+    tags: ['Consulting · Market Expansion', 'Strategy · Work'],
+    title: 'Mexico Market Pilot: The Engagement That Became a Career',
+    desc: 'As an external consultant at Nepanoa, I was sent to lead Draiver\'s first Mexico market expansion — a boots-on-the-ground pilot tied to an acquisition. The pilot succeeded. Draiver asked me to join full-time. I said yes.',
+    metrics: [
+      { num: '230%', label: 'Throughput increase' },
+      { num: '1→∞', label: 'Markets entered' },
+      { num: 'Hired', label: 'Consultant to full-time' }
+    ],
+    problem: 'Draiver was pursuing an acquisition and needed to validate their model in a new international market before the deal closed. They needed someone who could go on the ground in Mexico, embed with the client\'s operation, and make the pilot work. I was the person they put on the ground.',
+    role: [
+      'Embedded directly with the client\'s dispatchers and drivers, operating as the bridge between Draiver\'s product and the on-the-ground operation',
+      'Built a complete training program in English from scratch, then translated it fully into Spanish — Draiver\'s first Spanish-speaking client',
+      'The materials went on to train employees across future pilots and the customer support team',
+      'Increased throughput from 1.2 to 4 units/day (230% improvement)',
+      'Project-managed the full expansion: documents, bug tracking, tech access, stakeholder alignment, weekly status reports, blocker escalation',
+      'Built the operational documentation and playbook that became the template for subsequent market expansions',
+      'Presented pilot results to C-suite leadership at both Draiver and the client, under acquisition scrutiny',
+    ],
+    learned: [
+      { title: 'The pilot contributed to the acquisition closing', body: 'The Mexico engagement was one of the proof points the deal depended on. Demonstrating that the model could work in a new market, with a new language and client, mattered to the outcome.' },
+      { title: 'Draiver\'s CEO hired me out of consulting', body: 'After the acquisition closed, the CEO asked me to join full-time and build the Customer Operations function from scratch. By that point I had earned the confidence of the entire C-suite through the pilot\'s progress reports.' },
+      { title: 'Operating under pressure', body: 'I was evaluated under real acquisition stakes, by real decision-makers, before they committed to me full-time. Being trusted enough to be hired away from the consulting firm is the signal I\'m most proud of.' },
+    ]
+  },
+  jobhunter: {
+    tags: ['AI · Product', 'Personal Project'],
+    title: 'Job Hunter OS: AI Resume & Application Tracker',
+    desc: 'A single-file, locally-hosted web app that turns a job search into a structured, AI-assisted workflow. Includes a Role Analyzer (ATS score, H1B signal, salary intel), Resume Tailor, ATS Re-Scorer, Cover Letter generator with version history, Cold Outreach module, and a full Application Tracker.',
+    metrics: [],
+    problem: 'I was running a high-volume job search and spending too much time on manual tasks: reading JDs, tailoring resumes, writing cover letters, formatting outreach. I also had no good way to track what I\'d applied to, what state each application was in, and what version of my resume I\'d sent where.',
+    role: [
+      'Designed the full workflow: every step carries data forward so nothing needs to be re-entered',
+      'Role Analyzer ingests a JD and returns an ATS compatibility score, H1B signal, salary intel, and fit summary',
+      'Resume Tailor identifies gaps between a base resume and the JD, suggests targeted edits, and re-scores post-edit',
+      'Cover Letter module generates a draft in my voice, maintains version history, and supports iterative refinement',
+      'Cold Outreach module generates LinkedIn messages under 300 characters, calibrated to the role and company',
+      'Application Tracker maintains full history of applications, resume versions sent, and follow-up state',
+      'Built as a single file so it can run locally with no backend or account setup',
+    ],
+    learned: [
+      { title: 'The product insight: workflow, not tools', body: 'There are a lot of individual AI tools for job search. What didn\'t exist was a tool that connected them — where each step informed the next. The value wasn\'t any single module; it was the state passing between them.' },
+      { title: 'Building with the Claude API as a non-engineer', body: 'I built this end-to-end using the Claude API and vanilla JS, learning as I went. The process of scoping, designing, building, and testing a working product gave me a much sharper intuition about AI product development from the inside.' },
+    ],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/fernanda-flva/job-hunter-os' },
+      { label: 'Live Demo', url: 'https://fernanda-flva.github.io/job-hunter-os' },
+      { label: 'Case Study', url: 'https://docs.google.com/document/d/1SOOqTA198j-ZbEpuwSx8sr-Yv-nwCIKEA7ryUVVRBRE/edit?tab=t.0' },
+    ]
+  },
+  casecoach: {
+    tags: ['AI · Tools', 'Personal Project'],
+    title: 'Interview Case Coach: Business Operations & Strategy Prep System',
+    desc: 'A suite of three tools for decomposition-style case interview prep. 12 scenarios, full logic flows, red flags vs. strong signals grids, model candidate-to-interviewer dialogues, and an active practice tool with a 35-point readiness score.',
+    metrics: [],
+    problem: 'Case interview prep for business operations and strategy roles is hard to find good resources for. Most prep materials cover consulting-style cases; BizOps and PM ops cases are different. I needed something purpose-built.',
+    role: [
+      'Decomposition Interview Guide: 12 case scenarios with the full logic flow an interviewer expects',
+      'Each scenario includes clarifying questions a strong candidate should ask and a side-by-side red flags vs. strong signals grid',
+      'Candidate Model Answers: works through all 12 cases as live candidate-to-interviewer dialogue, with alternative approaches rated weak, acceptable, or strong',
+      'Case Coach (active practice tool): paste any case prompt, work through all 7 framework phases, and get specific AI feedback at each step',
+      '35-point readiness score at the end of each practice session',
+    ],
+    learned: [
+      { title: 'The gap in prep resources for BizOps', body: 'Most case prep tools are built for consulting. Business operations cases have a different shape: they\'re about process design, prioritization frameworks, and cross-functional coordination. Building this forced me to articulate what "good" actually looks like in those contexts.' },
+    ],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/fernanda-flva/interview-case-coach' },
+      { label: 'Live Demo', url: 'https://fernanda-flva.github.io/interview-case-coach/case-coach.html' },
+      { label: 'Case Study', url: 'https://docs.google.com/document/d/1yV3DmulCo5nZtR7b2O-dRrZl0pGWAHhP6KdX-Q8gfNg/edit?tab=t.0' },
+    ]
+  },
+  certs: {
+    tags: ['AI · Learning', 'Personal'],
+    title: 'AI Certifications & Coursework',
+    desc: 'Actively building technical depth in AI because I think it\'s essential to build good AI products, not optional.',
+    metrics: [{ num: '80%+', label: 'Databricks score' }],
+    problem: 'A lot of PMs talk about AI products without understanding how they actually work. I wanted to close that gap for myself — not to become an engineer, but to develop the technical intuition that makes AI product decisions sharper.',
+    role: [
+      'Databricks Academy: AI Agent Fundamentals certification (score 80%+), covering agentic workflows, multi-agent systems, and enterprise AI on the Mosaic AI platform',
+      'Anthropic prompt engineering and LLM integration curriculum',
+      'Built two working applications using the Claude API: Job Hunter OS and Interview Case Coach',
+      'Applied learning directly to real product problems, not just exercises',
+    ],
+    learned: [
+      { title: 'Technical depth changes how you scope AI products', body: 'Understanding confidence thresholds, prompt sensitivity, and context window constraints makes scoping AI features much more grounded. The decisions I made on the LLM roadmap system were better because I understood the underlying behavior.' },
+    ],
+    links: [
+      { label: 'View Databricks Certificate', url: 'https://www.credential.net/0b4c72fd-33e6-4176-8a2c-e6d2b67e46ad', primary: true },
+    ]
+  }
+};
+
+function openPanel(id) {
+  var data = cases[id];
+  if (!data) return;
+
+  var metricsHTML = data.metrics.length ? '<div class="panel-metrics">' + data.metrics.map(function(m) {
+    return '<div class="panel-metric"><div class="metric-num">' + m.num + '</div><div class="metric-label">' + m.label + '</div></div>';
+  }).join('') + '</div>' : '';
+
+  var roleHTML = '<ul class="panel-bullets">' + data.role.map(function(r) { return '<li>' + r + '</li>'; }).join('') + '</ul>';
+
+  var learnedHTML = data.learned.map(function(l) {
+    return '<div class="learned-card"><strong>' + l.title + '</strong><p>' + l.body + '</p></div>';
+  }).join('');
+
+  var linksHTML = '';
+  if (data.links && data.links.length) {
+    linksHTML = '<div class="panel-links">' + data.links.map(function(l) {
+      return '<a href="' + l.url + '" target="_blank" class="panel-link' + (l.primary ? ' primary' : '') + '">' + l.label + ' ↗</a>';
+    }).join('') + '</div>';
+  }
+
+  var tagsHTML = data.tags.map(function(t) { return '<span class="tag tag-domain">' + t + '</span>'; }).join('');
+
+  document.getElementById('panelContent').innerHTML = `
+    <div class="panel-tags">${tagsHTML}</div>
+    <h2 class="panel-title">${data.title}</h2>
+    <p class="panel-desc">${data.desc}</p>
+    ${metricsHTML}
+    <div class="panel-section-title">The Problem</div>
+    <p class="panel-body">${data.problem}</p>
+    <div class="panel-section-title">${data.tags[1] && data.tags[1].includes('Personal') ? 'What I Built' : 'My Role'}</div>
+    ${roleHTML}
+    <div class="panel-section-title">What I Learned</div>
+    ${learnedHTML}
+    ${linksHTML}
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('detailPanel').classList.add('open');
+  document.getElementById('panelClose').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('detailPanel').classList.remove('open');
+  document.getElementById('panelClose').classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePanel(); });
+
+document.querySelectorAll('.work-card[data-id]').forEach(function(card) {
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    openPanel(card.getAttribute('data-id'));
+  });
+});
+
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = btn.getAttribute('data-filter');
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    document.querySelectorAll('.work-card[data-id]').forEach(function(card) {
+      if (filter === 'all') {
+        card.classList.remove('hidden');
+      } else {
+        var cats = card.getAttribute('data-categories') || '';
+        card.classList.toggle('hidden', !cats.includes(filter));
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
