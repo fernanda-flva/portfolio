@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maria Fernanda Flores | Product Manager</title>
 <meta property="og:title" content="Maria Fernanda Flores | Senior Product Manager">
-<meta property="og:description" content="Senior PM & Product Ops Lead in NYC. Specialized in AI implementation and scaling global marketplaces.">
+<meta property="og:description" content="Senior PM in NYC. Builder at the intersection of operations, data, and growth.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://fernanda-flva.github.io/portfolio/">
-<meta name="description" content="Portfolio of Maria Fernanda Flores, a Senior Product Manager specializing in AI, Automation, and Product Operations.">
+<meta name="description" content="Portfolio of Maria Fernanda Flores, Senior Product Manager specializing in AI, Automation, and Product Operations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -34,11 +34,9 @@
     --font-body: 'DM Sans', sans-serif;
     --nav-h: 68px;
   }
-
+ 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: var(--font-body);
     background: var(--sand-50);
@@ -47,8 +45,8 @@
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
   }
-
-  /* ── NAV ── */
+ 
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     height: var(--nav-h);
@@ -75,13 +73,13 @@
     text-decoration: none;
     transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--accent); }
-
-  /* ── SECTIONS ── */
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+ 
+  /* SECTIONS */
   section { padding: 100px 5vw; }
   .section-inner { max-width: 1100px; margin: 0 auto; }
-
-  /* ── HERO ── */
+ 
+  /* HERO */
   #hero {
     min-height: 100vh;
     display: flex; align-items: center;
@@ -114,626 +112,207 @@
     position: relative; z-index: 1;
   }
   .hero-eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.2rem;
-    display: flex; align-items: center; gap: 10px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px;
   }
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 32px; height: 1px;
-    background: var(--accent);
-  }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
   .hero-name {
     font-family: var(--font-display);
     font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 1.05;
-    color: var(--ink-900);
-    margin-bottom: 1.5rem;
+    line-height: 1.05; color: var(--ink-900); margin-bottom: 1.5rem;
   }
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .hero-name em { font-style: italic; color: var(--accent); }
   .hero-sub {
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--ink-500);
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    max-width: 480px;
+    font-size: 1.1rem; font-weight: 300; color: var(--ink-500);
+    line-height: 1.7; margin-bottom: 2.5rem; max-width: 480px;
   }
   .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent);
-    color: var(--white);
-    padding: 0.8rem 1.6rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    background: var(--accent); color: var(--white);
+    padding: 0.8rem 1.6rem; border-radius: 4px;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
   }
   .btn-primary:hover { background: var(--accent-mid); transform: translateY(-1px); }
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: transparent;
-    color: var(--ink-700);
-    padding: 0.8rem 1.6rem;
-    border-radius: 4px;
-    border: 1px solid var(--sand-300);
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-decoration: none;
+    background: transparent; color: var(--ink-700);
+    padding: 0.8rem 1.6rem; border-radius: 4px;
+    border: 1px solid var(--sand-300); font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.04em; text-decoration: none;
     transition: border-color 0.2s, background 0.2s, transform 0.15s;
   }
   .btn-secondary:hover { border-color: var(--accent); background: var(--accent-light); transform: translateY(-1px); }
-
+ 
   .hero-stats {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1.5px;
-    background: var(--sand-200);
-    border: 1px solid var(--sand-200);
-    border-radius: 8px;
-    overflow: hidden;
+    gap: 1.5px; background: var(--sand-200);
+    border: 1px solid var(--sand-200); border-radius: 8px; overflow: hidden;
   }
   .stat-card {
-    background: var(--white);
-    padding: 1.8rem 1.6rem;
-    transition: background 0.2s;
+    background: var(--white); padding: 1.8rem 1.6rem; transition: background 0.2s;
   }
   .stat-card:hover { background: var(--sand-50); }
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-  .stat-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-300);
-  }
-  .stat-desc {
-    font-size: 0.85rem;
-    color: var(--ink-500);
-    margin-top: 0.3rem;
-    line-height: 1.5;
-  }
-
-  /* ── SECTION LABELS ── */
+  .stat-num { font-family: var(--font-display); font-size: 2.4rem; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-300); }
+  .stat-desc { font-size: 0.85rem; color: var(--ink-500); margin-top: 0.3rem; line-height: 1.5; }
+ 
+  /* SECTION LABELS */
   .section-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.8rem;
-    display: flex; align-items: center; gap: 10px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;
   }
-  .section-label::before {
-    content: ''; display: block;
-    width: 24px; height: 1px; background: var(--accent);
-  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
   .section-title {
     font-family: var(--font-display);
     font-size: clamp(2rem, 3vw, 2.8rem);
-    color: var(--ink-900);
-    line-height: 1.15;
-    margin-bottom: 1rem;
+    color: var(--ink-900); line-height: 1.15; margin-bottom: 1rem;
   }
-  .section-intro {
-    font-size: 1rem;
-    color: var(--ink-500);
-    max-width: 640px;
-    line-height: 1.75;
-  }
-
-  /* ── ABOUT ── */
+  .section-intro { font-size: 1rem; color: var(--ink-500); max-width: 640px; line-height: 1.75; }
+ 
+  /* ABOUT */
   #about { background: var(--white); }
   .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-    margin-top: 3.5rem;
+    display: grid; grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px; align-items: start; margin-top: 3.5rem;
   }
-  .about-text p {
-    font-size: 1rem;
-    color: var(--ink-700);
-    line-height: 1.85;
-    margin-bottom: 1.4rem;
-  }
+  .about-text p { font-size: 1rem; color: var(--ink-700); line-height: 1.85; margin-bottom: 1.4rem; }
   .about-text p strong { color: var(--ink-900); font-weight: 600; }
   .story-card {
-    background: var(--sand-50);
-    border: 1px solid var(--sand-200);
-    border-left: 3px solid var(--accent);
-    border-radius: 6px;
-    padding: 2rem;
-    margin-top: 1.5rem;
+    background: var(--sand-50); border: 1px solid var(--sand-200);
+    border-left: 3px solid var(--accent); border-radius: 6px; padding: 2rem; margin-top: 1.5rem;
   }
-  .story-card-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.8rem;
-  }
-  .story-card p {
-    font-size: 0.95rem;
-    color: var(--ink-500);
-    line-height: 1.8;
-    margin-bottom: 0;
-  }
+  .story-card-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .story-card p { font-size: 0.95rem; color: var(--ink-500); line-height: 1.8; margin-bottom: 0; }
+ 
   .about-right { display: flex; flex-direction: column; gap: 1.5rem; }
-  .detail-block {
-    border-top: 1px solid var(--sand-200);
-    padding-top: 1.2rem;
-  }
+  .detail-block { border-top: 1px solid var(--sand-200); padding-top: 1.2rem; }
   .detail-block:first-child { border-top: none; padding-top: 0; }
-  .detail-block-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-300);
-    margin-bottom: 0.6rem;
-  }
-  .detail-block-content {
-    font-size: 0.92rem;
-    color: var(--ink-700);
-    line-height: 1.7;
-  }
+  .detail-block-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-300); margin-bottom: 0.6rem; }
+  .detail-block-content { font-size: 0.92rem; color: var(--ink-700); line-height: 1.7; }
   .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
-  .tag {
-    font-size: 0.78rem;
-    font-weight: 500;
-    padding: 0.3rem 0.75rem;
-    border-radius: 99px;
-    background: var(--accent-light);
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
-
-  /* ── SKILLS ── */
+  .tag { font-size: 0.78rem; font-weight: 500; padding: 0.3rem 0.75rem; border-radius: 99px; background: var(--accent-light); color: var(--accent); letter-spacing: 0.02em; }
+ 
+  /* SKILLS */
   #skills { background: var(--sand-50); }
   .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--sand-200);
-    border: 1px solid var(--sand-200);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 3rem;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--sand-200);
+    border: 1px solid var(--sand-200); border-radius: 8px; overflow: hidden; margin-top: 3rem;
   }
-  .skill-col {
-    background: var(--white);
-    padding: 2rem 1.6rem;
-  }
-  .skill-col-title {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--sand-200);
-  }
-  .skill-item {
-    font-size: 0.88rem;
-    color: var(--ink-700);
-    padding: 0.4rem 0;
-    border-bottom: 1px solid var(--sand-100);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .skill-item::before {
-    content: '';
-    display: block;
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--sand-300);
-    flex-shrink: 0;
-  }
+  .skill-col { background: var(--white); padding: 2rem 1.6rem; }
+  .skill-col-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--sand-200); }
+  .skill-item { font-size: 0.88rem; color: var(--ink-700); padding: 0.4rem 0; border-bottom: 1px solid var(--sand-100); display: flex; align-items: center; gap: 8px; }
+  .skill-item::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--sand-300); flex-shrink: 0; }
   .skill-item:last-child { border-bottom: none; }
-
-  /* ── CASE STUDIES ── */
-  #work { background: var(--white); }
-  .work-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 3.5rem;
-    flex-wrap: wrap; gap: 1rem;
-  }
-  /* case study rows — each row holds its own cards + expand panel */
-  .case-rows { display: flex; flex-direction: column; border: 1px solid var(--sand-200); border-radius: 8px; overflow: hidden; }
-  .case-row { display: flex; flex-direction: column; }
-  .case-row + .case-row { border-top: 2px solid var(--sand-200); }
-  .case-row-cards { display: flex; gap: 2px; background: var(--sand-200); }
-  .case-row-cards .case-card { flex: 1; }
-  .case-card {
-    background: var(--white);
-    padding: 2.5rem;
-    cursor: pointer;
-    transition: background 0.2s;
-    position: relative;
-  }
-  .case-card:hover { background: var(--sand-50); }
-  .case-card.active { background: var(--accent-light); border-bottom: 2px solid var(--accent); }
-  .case-card.featured {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    border-bottom: 2px solid var(--sand-200);
-  }
-  .case-tag {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: var(--accent-light);
-    padding: 0.3rem 0.7rem;
-    border-radius: 99px;
-    margin-bottom: 1.2rem;
-  }
-  .case-title {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--ink-900);
-    line-height: 1.25;
-    margin-bottom: 0.8rem;
-  }
-  .case-desc {
-    font-size: 0.9rem;
-    color: var(--ink-500);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-  .case-metrics { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-  .case-metric { }
-  .case-metric-num {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .case-metric-label {
-    font-size: 0.72rem;
-    color: var(--ink-300);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 0.2rem;
-  }
-  .case-visual {
-    background: var(--sand-100);
-    border-radius: 6px;
-    height: 220px;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
-  .case-visual-inner {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display);
-    font-size: 4rem;
-    color: var(--sand-300);
-    user-select: none;
-  }
-
-  /* Diagram SVGs inside case visuals */
-  .case-visual svg { width: 90%; height: 90%; }
-
-  .case-arrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--accent);
-    margin-top: 1rem;
-    letter-spacing: 0.02em;
-    transition: gap 0.2s;
-  }
-  .case-card:hover .case-arrow { gap: 10px; }
-
-  /* expand panel */
-  .case-expand {
-    display: none;
-    background: var(--sand-50);
-    border-top: 1px solid var(--sand-200);
-    padding: 2.5rem;
-  }
-  .case-expand.open { display: block; }
-  .expand-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .expand-section-title {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-300);
-    margin-bottom: 0.6rem;
-  }
-  .expand-body {
-    font-size: 0.9rem;
-    color: var(--ink-700);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-  .expand-bullets { list-style: none; }
-  .expand-bullets li {
-    font-size: 0.88rem;
-    color: var(--ink-700);
-    padding: 0.35rem 0;
-    padding-left: 1rem;
-    position: relative;
-    line-height: 1.6;
-    border-bottom: 1px solid var(--sand-200);
-  }
-  .expand-bullets li:last-child { border-bottom: none; }
-  .expand-bullets li::before {
-    content: '→';
-    position: absolute; left: 0;
-    color: var(--accent);
-    font-size: 0.8rem;
-  }
-  .learned-card {
-    background: var(--white);
-    border: 1px solid var(--sand-200);
-    border-radius: 6px;
-    padding: 1.2rem;
-    margin-bottom: 0.75rem;
-  }
-  .learned-card strong {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--ink-900);
-    margin-bottom: 0.3rem;
-  }
-  .learned-card p {
-    font-size: 0.82rem;
-    color: var(--ink-500);
-    line-height: 1.65;
-  }
-
-  /* ── SIDE PROJECTS ── */
-  #projects { background: var(--sand-50); }
-  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
-  .project-card {
-    background: var(--white);
-    border: 1px solid var(--sand-200);
-    border-radius: 8px;
-    padding: 2rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-  .project-icon {
-    width: 44px; height: 44px;
-    border-radius: 8px;
-    background: var(--accent-light);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.2rem;
-    font-size: 1.2rem;
-  }
-  .project-title {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    color: var(--ink-900);
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-  .project-desc {
-    font-size: 0.85rem;
-    color: var(--ink-500);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-  .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .project-tech span {
-    font-size: 0.72rem;
-    font-weight: 500;
-    padding: 0.2rem 0.6rem;
-    border-radius: 3px;
-    background: var(--sand-100);
-    color: var(--ink-500);
-    letter-spacing: 0.03em;
-  }
-
-  /* ── RECOMMENDATIONS ── */
+ 
+  /* RECOMMENDATIONS on home */
   #recommendations { background: var(--white); }
-  .rec-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
+  .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
   .rec-card {
-    background: var(--sand-50);
-    border: 1px solid var(--sand-200);
-    border-radius: 8px;
-    padding: 2.2rem 2rem 1.8rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    background: var(--sand-50); border: 1px solid var(--sand-200);
+    border-radius: 8px; padding: 2.2rem 2rem 1.8rem;
+    position: relative; display: flex; flex-direction: column; gap: 1.5rem;
     transition: box-shadow 0.2s;
   }
   .rec-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
   .rec-featured {
-    grid-column: 1 / -1;
-    background: var(--accent-light);
-    border-color: rgba(45,90,78,0.18);
-    border-left: 3px solid var(--accent);
+    grid-column: 1 / -1; background: var(--accent-light);
+    border-color: rgba(45,90,78,0.18); border-left: 3px solid var(--accent);
   }
   .rec-quote-mark {
-    font-family: var(--font-display);
-    font-size: 4rem;
-    line-height: 1;
-    color: var(--accent);
-    opacity: 0.25;
-    position: absolute;
-    top: 1rem;
-    left: 1.8rem;
-    pointer-events: none;
+    font-family: var(--font-display); font-size: 4rem; line-height: 1;
+    color: var(--accent); opacity: 0.25; position: absolute; top: 1rem; left: 1.8rem; pointer-events: none;
   }
   .rec-featured .rec-quote-mark { opacity: 0.35; }
-  blockquote.rec-body {
-    font-size: 0.93rem;
-    color: var(--ink-700);
-    line-height: 1.85;
-    font-style: normal;
-    padding-top: 1.2rem;
-  }
-  .rec-featured blockquote.rec-body {
-    font-size: 0.97rem;
+ 
+  /* Pull quote highlight */
+  .rec-pull {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
     color: var(--ink-900);
-  }
-  .rec-attribution {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    line-height: 1.5;
+    font-style: italic;
     padding-top: 1.2rem;
+    padding-right: 1rem;
+    border-bottom: 1px solid var(--sand-200);
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .rec-featured .rec-pull { font-size: 1.1rem; border-bottom-color: rgba(45,90,78,0.15); }
+ 
+  .rec-body-collapsed {
+    font-size: 0.88rem; color: var(--ink-500); line-height: 1.75;
+    display: none;
+  }
+  .rec-card.expanded .rec-body-collapsed { display: block; }
+  .rec-toggle {
+    font-size: 0.78rem; font-weight: 500; color: var(--accent);
+    background: none; border: none; cursor: pointer; padding: 0;
+    letter-spacing: 0.03em; text-align: left; margin-top: -0.5rem;
+  }
+  .rec-toggle:hover { text-decoration: underline; }
+ 
+  .rec-attribution {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 0.75rem; padding-top: 1.2rem;
     border-top: 1px solid var(--sand-200);
   }
   .rec-featured .rec-attribution { border-top-color: rgba(45,90,78,0.15); }
-  .rec-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--ink-900);
-    margin-bottom: 0.2rem;
-  }
-  .rec-title {
-    font-size: 0.78rem;
-    color: var(--ink-400, var(--ink-500));
-    letter-spacing: 0.01em;
-  }
+  .rec-name { font-size: 0.9rem; font-weight: 600; color: var(--ink-900); margin-bottom: 0.2rem; }
+  .rec-title { font-size: 0.78rem; color: var(--ink-500); letter-spacing: 0.01em; }
   .rec-verify {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-    opacity: 0.8;
-    transition: opacity 0.2s;
+    font-size: 0.75rem; font-weight: 500; color: var(--accent);
+    text-decoration: none; letter-spacing: 0.04em; white-space: nowrap; opacity: 0.8; transition: opacity 0.2s;
   }
   .rec-verify:hover { opacity: 1; text-decoration: underline; }
-  @media (max-width: 900px) {
-    .rec-grid { grid-template-columns: 1fr; }
-    .rec-featured { grid-column: 1; }
-  }
-
-  /* ── CONTACT ── */
+ 
+  /* CONTACT */
   #contact { background: var(--ink-900); }
   #contact .section-label { color: var(--sand-300); }
   #contact .section-label::before { background: var(--sand-300); }
   #contact .section-title { color: var(--white); }
   .contact-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
-    margin-top: 3rem;
+    gap: 80px; align-items: center; margin-top: 3rem;
   }
-  .contact-left p {
-    font-size: 1rem;
-    color: var(--sand-300);
-    line-height: 1.8;
-    margin-bottom: 2rem;
-  }
+  .contact-left p { font-size: 1rem; color: var(--sand-300); line-height: 1.8; margin-bottom: 2rem; }
   .contact-links { display: flex; flex-direction: column; gap: 1rem; }
   .contact-link {
     display: flex; align-items: center; gap: 1rem;
-    text-decoration: none;
-    padding: 1.2rem 1.4rem;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 6px;
+    text-decoration: none; padding: 1.2rem 1.4rem;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;
     transition: background 0.2s, border-color 0.2s;
   }
   .contact-link:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.15); }
   .contact-link-icon {
-    width: 38px; height: 38px;
-    border-radius: 6px;
+    width: 38px; height: 38px; border-radius: 6px;
     background: rgba(255,255,255,0.06);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .contact-link-text { }
-  .contact-link-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--sand-400);
-    margin-bottom: 0.2rem;
-  }
-  .contact-link-value {
-    font-size: 0.95rem;
-    color: var(--white);
-    font-weight: 400;
-  }
+  .contact-link-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-400); margin-bottom: 0.2rem; }
+  .contact-link-value { font-size: 0.95rem; color: var(--white); font-weight: 400; }
   .contact-right {
-    padding: 2.5rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 8px;
+    padding: 2.5rem; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 8px;
   }
-  .availability-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: #7ec8a0;
-    background: rgba(126,200,160,0.12);
-    padding: 0.4rem 0.9rem;
-    border-radius: 99px;
-    margin-bottom: 1.5rem;
-  }
-  .availability-badge::before {
-    content: '';
-    display: block; width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #7ec8a0;
-    box-shadow: 0 0 0 2px rgba(126,200,160,0.3);
-  }
-  .contact-right h3 {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    color: var(--white);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-  }
-  .contact-right p {
-    font-size: 0.88rem;
-    color: var(--sand-400);
-    line-height: 1.75;
-    margin-bottom: 1.5rem;
-  }
+  .contact-right h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--white); margin-bottom: 1rem; line-height: 1.3; }
+  .contact-right p { font-size: 0.88rem; color: var(--sand-400); line-height: 1.75; margin-bottom: 1.5rem; }
   .contact-right .btn-primary { width: 100%; justify-content: center; }
-
-  /* ── FOOTER ── */
+ 
+  /* FOOTER */
   footer {
-    background: var(--ink-900);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 2rem 5vw;
-    display: flex; justify-content: space-between; align-items: center;
+    background: var(--ink-900); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 5vw; display: flex; justify-content: space-between; align-items: center;
   }
+  footer a { color: var(--sand-400); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+  footer a:hover { color: var(--white); }
   footer p { font-size: 0.78rem; color: var(--sand-500); }
-
-  /* ── ANIMATIONS ── */
+ 
+  /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -744,36 +323,33 @@
   .delay-3 { animation-delay: 0.34s; }
   .delay-4 { animation-delay: 0.46s; }
   .delay-5 { animation-delay: 0.58s; }
-
-  /* ── RESPONSIVE ── */
+ 
+  /* RESPONSIVE */
   @media (max-width: 900px) {
-    .hero-inner, .about-grid, .contact-grid, .expand-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .case-row-cards { flex-direction: column; }
-    .case-card.featured { grid-template-columns: 1fr; }
+    .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
-    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .rec-grid { grid-template-columns: 1fr; }
+    .rec-featured { grid-column: 1; }
     .nav-links { display: none; }
   }
   @media (max-width: 600px) {
-    .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
     section { padding: 70px 5vw; }
   }
 </style>
 </head>
 <body>
-
-<!-- NAV -->
+ 
 <nav>
-  <a href="#hero" class="nav-logo">M. Fernanda Flores</a>
+  <a href="index.html" class="nav-logo">M. Fernanda Flores</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#recommendations">Recommendations</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="index.html" class="active">About</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
 </nav>
-
+ 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-inner">
@@ -782,8 +358,10 @@
       <h1 class="hero-name fade-up delay-1">Maria<br><em>Fernanda</em><br>Flores</h1>
       <p class="hero-sub fade-up delay-2">I build products at the intersection of operations, data, and growth. I never stop asking why.</p>
       <div class="hero-ctas fade-up delay-3">
-        <a href="#work" class="btn-primary">View Case Studies ↓</a>
+        <a href="work.html" class="btn-primary">View My Work →</a>
+        <a href="resume.html" class="btn-secondary">Resume</a>
         <a href="mailto:ferflva@gmail.com" class="btn-secondary">Get in Touch</a>
+ 
       </div>
     </div>
     <div class="hero-stats fade-up delay-4">
@@ -810,59 +388,25 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- ABOUT -->
 <section id="about">
   <div class="section-inner">
     <p class="section-label">About</p>
     <h2 class="section-title">Built to ask why.</h2>
-    <div class="about-grid">
+    <div class="about-grid" style="grid-template-columns:1fr;max-width:680px">
       <div class="about-text">
-        <p>I'm a Senior PM with a background that spans product, operations, and strategy. I've spent the last five years building and scaling platforms at Draiver — starting by standing up a 30-person Customer Operations function from scratch, and transitioning into owning a portfolio of five B2B and B2C products across four international markets.</p>
-        <p>What drives me isn't the output. It's the mechanism behind it. <strong>I'm the person who can't walk past a problem without wanting to understand its structure.</strong> Not to be difficult, but because the why usually contains the entire solution.</p>
+        <p>I'm a product manager and systems thinker. <strong>The analytical instinct doesn't turn off.</strong> A few years ago, waiting at a pizza place, a friend and I started wondering how many pizzas they sell in a day. By the time we reached the cashier, we'd modeled line length, peak windows, the whole-to-slice ratio, and a day-of-week adjustment, then asked the person at the register for the actual number. That's not a professional exercise. That's just how my brain works.</p>
         <div class="story-card">
-          <div class="story-card-label">How I actually think</div>
-          <p>A few years ago, waiting at a pizza place with a friend, we started wondering how many pizzas they sell in a day. By the time we reached the cashier, we'd worked through the line length, average wait time, peak lunch and dinner windows, the ratio of whole pies to slices, and a per-day-of-week adjustment. We asked the person at the register for the actual number before placing our order. That's not a professional exercise. That's just how my brain works. The analytical instinct doesn't turn off. I'm always looking at what drives a business, what made someone build it, and what the ceiling on its growth actually is.</p>
+          <div class="story-card-label">How I work</div>
+          <p>I move between strategy and execution without losing the thread. I'll write a product spec in the morning and dig into a SQL query in the afternoon. Most product problems are actually coordination problems: the wrong people don't have the right information at the right time. I'm good at fixing that, and good at being the person in the room who asks the question everyone else assumed had already been answered.</p>
         </div>
-        <p style="margin-top:1.4rem">Before Draiver, I was a strategy consultant at Nepanoa in Guadalajara. One of my clients was Draiver. They needed someone to go boots-on-the-ground and lead their Mexico market pilot, a high-visibility engagement tied directly to an acquisition they were pursuing. I led it. The pilot worked. When the acquisition closed, they asked me to stay and build the Customer Operations function from scratch. I was the consultant they trusted enough to hire. That consulting chapter, learning to move fast in ambiguous environments, communicate to executives, and turn operational chaos into structured plans, is the foundation everything else is built on.</p>
-      </div>
-      <div class="about-right">
-        <div class="detail-block">
-          <div class="detail-block-label">Currently</div>
-          <div class="detail-block-content">Senior Product Manager at Draiver · New York, NY<br>Targeting PM, Product Ops, and Strategy roles in NYC</div>
-        </div>
-        <div class="detail-block">
-          <div class="detail-block-label">Background</div>
-          <div class="detail-block-content">BS Industrial & Systems Engineering, Tecnológico de Monterrey (one of Latin America's top-ranked engineering programs) · Exchange semester, Boston University</div>
-        </div>
-        <div class="detail-block">
-          <div class="detail-block-label">Languages</div>
-          <div class="detail-block-content">Bilingual English / Spanish · Conversational German (Goethe B1)</div>
-        </div>
-        <div class="detail-block">
-          <div class="detail-block-label">Expertise</div>
-          <div class="tag-list">
-            <span class="tag">0→1 Product</span>
-            <span class="tag">AI / LLM Integration</span>
-            <span class="tag">Logistics & Marketplace</span>
-            <span class="tag">Global Expansion</span>
-            <span class="tag">Product-Led Growth</span>
-            <span class="tag">Ops → Product</span>
-            <span class="tag">B2B & B2C</span>
-            <span class="tag">Agile / Scrum</span>
-          </div>
-        </div>
-        <div class="detail-block">
-          <div class="detail-block-label">Resume</div>
-          <div class="detail-block-content">
-            <a href="Fernanda_Flores_Resume_Spring2026.pdf" target="_blank" class="btn-secondary" style="margin-top:0.5rem;font-size:0.8rem;padding:0.6rem 1.2rem">Download Resume ↓</a>
-          </div>
-        </div>
+        <p style="margin-top: 1.4rem">Bilingual (English / Spanish), background across strategy consulting, operations, and product. I've spent time on both sides of the table: delivering the product and using it to do a job. That shapes how I think about what actually matters.</p>
       </div>
     </div>
   </div>
 </section>
-
+ 
 <!-- SKILLS -->
 <section id="skills">
   <div class="section-inner">
@@ -912,453 +456,84 @@
     </div>
   </div>
 </section>
-
-<!-- WORK / CASE STUDIES -->
-<section id="work">
-  <div class="section-inner">
-    <div class="work-header">
-      <div>
-        <p class="section-label">Case Studies</p>
-        <h2 class="section-title">Selected work.</h2>
-      </div>
-      <p class="section-intro" style="max-width:380px;font-size:0.9rem">Each project is documented with the problem, my specific role, how it worked, and what I learned. Click any card to expand.</p>
-    </div>
-
-    <div class="case-rows">
-
-      <!-- ROW 1: LLM (featured, full width) -->
-      <div class="case-row">
-        <div class="case-row-cards">
-          <div class="case-card featured" data-case="llm">
-            <div>
-              <span class="case-tag">AI · Internal Tools</span>
-              <h3 class="case-title">Jira-Integrated LLM System for Roadmap Visibility</h3>
-              <p class="case-desc">Built a system that auto-generated roadmap status responses for stakeholders: queue position, sprint dates, effort estimates, and reprioritization context. It eliminated PM interrupt work on routine status questions entirely.</p>
-              <div class="case-metrics">
-                <div class="case-metric">
-                  <div class="case-metric-num">30%</div>
-                  <div class="case-metric-label">Fewer inbound inquiries</div>
-                </div>
-                <div class="case-metric">
-                  <div class="case-metric-num">~40</div>
-                  <div class="case-metric-label">Questions/week eliminated</div>
-                </div>
-                <div class="case-metric">
-                  <div class="case-metric-num">&lt;2 min</div>
-                  <div class="case-metric-label">Response time (was 8–12 min)</div>
-                </div>
-              </div>
-              <span class="case-arrow">Expand case study →</span>
-            </div>
-            <div class="case-visual">
-              <svg viewBox="0 0 340 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="20" y="75" width="80" height="50" rx="6" fill="#e8f0ee" stroke="#4a7c6f" stroke-width="1.5"/>
-                <text x="60" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#2d5a4e" font-weight="600">JIRA</text>
-                <text x="60" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Tickets · Sprints</text>
-                <rect x="20" y="145" width="80" height="40" rx="6" fill="#f3efe9" stroke="#b8a890" stroke-width="1.5"/>
-                <text x="60" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#3d3629" font-weight="600">Roadmap</text>
-                <text x="60" y="176" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Comments · Context</text>
-                <rect x="20" y="20" width="80" height="40" rx="6" fill="#f3efe9" stroke="#b8a890" stroke-width="1.5"/>
-                <text x="60" y="38" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#3d3629" font-weight="600">Sprint Cal</text>
-                <text x="60" y="51" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Dates · Capacity</text>
-                <line x1="100" y1="40" x2="148" y2="88" stroke="#b8a890" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
-                <line x1="100" y1="100" x2="148" y2="100" stroke="#4a7c6f" stroke-width="1.5" marker-end="url(#arr2)"/>
-                <line x1="100" y1="160" x2="148" y2="112" stroke="#b8a890" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr)"/>
-                <rect x="150" y="72" width="80" height="56" rx="8" fill="#2d5a4e" stroke="none"/>
-                <text x="190" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="white" font-weight="600">LLM</text>
-                <text x="190" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="rgba(255,255,255,0.7)">Synthesize + Send</text>
-                <line x1="230" y1="100" x2="268" y2="100" stroke="#4a7c6f" stroke-width="1.5" marker-end="url(#arr2)"/>
-                <rect x="270" y="72" width="60" height="56" rx="6" fill="#e8f0ee" stroke="#4a7c6f" stroke-width="1.5"/>
-                <text x="300" y="97" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#2d5a4e" font-weight="600">Slack</text>
-                <text x="300" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#6b6257">Auto-reply</text>
-                <defs>
-                  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                    <path d="M2 1L8 5L2 9" fill="none" stroke="#b8a890" stroke-width="1.5" stroke-linecap="round"/>
-                  </marker>
-                  <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                    <path d="M2 1L8 5L2 9" fill="none" stroke="#4a7c6f" stroke-width="1.5" stroke-linecap="round"/>
-                  </marker>
-                </defs>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="case-expand" id="expand-llm">
-          <div class="expand-grid">
-            <div>
-              <div class="expand-section-title">The Problem</div>
-              <p class="expand-body">Four PMs were collectively fielding ~40 inbound status questions per week from Sales, Ops, CS, and the C-suite, with no formal intake process. Each response required manually pulling Jira, cross-referencing the roadmap, calculating queue position using point/effort equivalencies, and writing a personalized reply. That was 5–8 hours of unplanned interrupt time weekly.</p>
-              <div class="expand-section-title" style="margin-top:1.5rem">My Role</div>
-              <ul class="expand-bullets">
-                <li>Problem diagnosis: audited 6 weeks of inbound Slack and email threads to categorize question types</li>
-                <li>Data architecture: mapped the three source-of-truth systems the LLM needed to query (Jira, roadmap doc, sprint calendar)</li>
-                <li>API integration &amp; prompt design: worked alongside engineering on Jira API integration and LLM prompt templates</li>
-                <li>Output design: defined the structured Slack/email response format including sprint dates, effort estimates, and reprioritization context</li>
-                <li>Rollout: ran a two-week pilot with CS and Ops teams; added confidence threshold routing before company-wide launch</li>
-              </ul>
-            </div>
-            <div>
-              <div class="expand-section-title">What I Learned</div>
-              <div class="learned-card">
-                <strong>The bottleneck was translation, not access</strong>
-                <p>The data existed in three places. The problem was that converting it into a useful answer required PM context stakeholders didn't have. That's exactly what an LLM handles well.</p>
-              </div>
-              <div class="learned-card">
-                <strong>Confidence thresholds matter more than accuracy averages</strong>
-                <p>Early versions had a higher auto-response rate. A few wrong answers caused more trust damage than the time savings justified. Adding a routing threshold for low-confidence cases was the most important quality decision.</p>
-              </div>
-              <div class="learned-card">
-                <strong>Documentation quality becomes a product dependency</strong>
-                <p>The system was only as good as the ticket comments it indexed. This created an unexpected forcing function: PMs became more disciplined about logging reprioritization rationale because they knew it would surface directly to stakeholders.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROW 2: Pricing + Ops (side by side, shared row, each with own expand) -->
-      <div class="case-row">
-        <div class="case-row-cards">
-          <div class="case-card" data-case="pricing">
-            <span class="case-tag">Revenue · Growth</span>
-            <h3 class="case-title">Self-Serve Move Pricing Tool</h3>
-            <p class="case-desc">Replaced manual Excel quotes with a public-facing estimator covering 4 countries, 3 move types, distance calculation, and vehicle compliance rules. Lead capture and demand signal tracking built in from day one.</p>
-            <div class="case-metrics">
-              <div class="case-metric">
-                <div class="case-metric-num">Days→Min</div>
-                <div class="case-metric-label">Quote turnaround (projected)</div>
-              </div>
-              <div class="case-metric">
-                <div class="case-metric-num">4</div>
-                <div class="case-metric-label">Markets supported</div>
-              </div>
-            </div>
-            <span class="case-arrow">Expand case study →</span>
-          </div>
-          <div class="case-card" data-case="ops">
-            <span class="case-tag">Operations · 0→1</span>
-            <h3 class="case-title">Customer Operations: 0 to 30-Person Team</h3>
-            <p class="case-desc">Built the entire Customer Operations function at Draiver from scratch: team, CRM, dashboards, knowledge base, SOPs, and a data bridge to product that turned support tickets into a product feedback loop.</p>
-            <div class="case-metrics">
-              <div class="case-metric">
-                <div class="case-metric-num">70%</div>
-                <div class="case-metric-label">Support volume reduction</div>
-              </div>
-              <div class="case-metric">
-                <div class="case-metric-num">50%</div>
-                <div class="case-metric-label">FCR improvement</div>
-              </div>
-            </div>
-            <span class="case-arrow">Expand case study →</span>
-          </div>
-        </div>
-        <div class="case-expand" id="expand-pricing">
-          <div class="expand-grid">
-            <div>
-              <div class="expand-section-title">The Problem</div>
-              <p class="expand-body">Prospective clients had no way to understand Draiver's pricing without scheduling a sales call. Every quote was built manually in Excel: pulling rate cards, calculating distances, applying the right country/move-type price list. There was no self-serve option, no structured lead capture, and no data on what the market was actually asking for.</p>
-              <div class="expand-section-title" style="margin-top:1.5rem">How It Worked</div>
-              <ul class="expand-bullets">
-                <li>User inputs Point A and Point B → distance calculated automatically</li>
-                <li>Selects move type (Fleet, Consumer, Automatic Retail) and country</li>
-                <li>Flags vehicle compliance requirements (CDL / DOT medical card)</li>
-                <li>The system queries the back-end price list for the selected move type, country, and compliance flags and returns a single calculated estimate</li>
-                <li>Price lists are managed directly by the sales team via a back-end interface, so adjustments can be made immediately without a dev release</li>
-                <li>User enters name and email → quote stored and tied to their lead record</li>
-                <li>CTA to book a sales call or submit a move request directly</li>
-              </ul>
-            </div>
-            <div>
-              <div class="expand-section-title">Projected Value</div>
-              <div class="learned-card">
-                <strong>Quote turnaround: days → under 2 minutes</strong>
-                <p>Eliminates the Excel quoting step for initial estimates. Projected ~20–30 min saved per qualified lead for the sales team.</p>
-              </div>
-              <div class="learned-card">
-                <strong>Demand signal for pricing review</strong>
-                <p>First-ever structured view of which routes, move types, and markets generate the most exploration vs. conversion. A direct input for Sales and Finance pricing reviews.</p>
-              </div>
-              <div class="learned-card">
-                <strong>Every lead arrives with a stored quote</strong>
-                <p>Salespeople enter conversations knowing what the client priced, what estimate they saw, and what compliance flags they selected. No cold starts.</p>
-              </div>
-              <p class="expand-body" style="font-size:0.8rem;color:var(--ink-300);margin-top:0.5rem">Note: tool launched in testing phase. Figures are projected; actuals to be updated as data accumulates.</p>
-            </div>
-          </div>
-        </div>
-        <div class="case-expand" id="expand-ops">
-          <div class="expand-grid">
-            <div>
-              <div class="expand-section-title">The Problem</div>
-              <p class="expand-body">Draiver was scaling rapidly with no formal Customer Operations structure. There was no CRM, no knowledge base, no SOPs, and no consistent way to handle support tickets. The product and ops teams had no visibility into what users were struggling with, and there was no mechanism to turn that signal into product improvements.</p>
-              <div class="expand-section-title" style="margin-top:1.5rem">What I Built</div>
-              <ul class="expand-bullets">
-                <li>Hired and onboarded a 30+ person support team in a high-growth startup environment</li>
-                <li>Designed and deployed the CRM from scratch: custom dashboards, automated reporting, ticket volume and resolution tracking</li>
-                <li>Built the company's first internal and user-facing knowledge base from cross-functional user interviews and standardized SOPs</li>
-                <li>Created a data bridge between CRM and Product that surfaced UX friction points as product requirements, reducing registration support volume by 70%</li>
-                <li>Synthesized weekly QA intelligence for C-suite, improving procedural accuracy by 16%</li>
-              </ul>
-            </div>
-            <div>
-              <div class="expand-section-title">Why It Mattered</div>
-              <div class="learned-card">
-                <strong>Ops as the earliest product signal</strong>
-                <p>A 70% drop in registration support volume didn't come from better scripts. It came from identifying root-cause UX friction points and turning them into product fixes. The ops function was the most direct feedback loop into the product roadmap at that stage.</p>
-              </div>
-              <div class="learned-card">
-                <strong>The CRM is a product too</strong>
-                <p>Designing the CRM and dashboard infrastructure around the GTM team's actual decision-making needs, not just ticket volume, is what made it stick. It's still the system the team runs on today.</p>
-              </div>
-              <div class="learned-card">
-                <strong>From ops to product: the through-line</strong>
-                <p>This role taught me that the transition from ops management to product management isn't a pivot. It's an evolution. The same instinct that builds a good SOP builds a good product spec.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end .case-rows -->
-
-      <!-- ROW 3: Mexico Pilot (featured, full width) -->
-      <div class="case-rows" style="margin-top:2px;">
-      <div class="case-row">
-        <div class="case-row-cards">
-          <div class="case-card featured" data-case="mexico">
-            <div>
-              <span class="case-tag">Consulting · Market Expansion</span>
-              <h3 class="case-title">Mexico Market Pilot: The Engagement That Became a Career</h3>
-              <p class="case-desc">As an external consultant at Nepanoa, I was sent to lead Draiver's first Mexico market expansion, a boots-on-the-ground pilot tied to an acquisition. I embedded with dispatchers and drivers, built a complete English training program and translated it into Spanish, identified operational gaps on both sides, project-managed the full expansion, and presented results to C-suite leadership on both sides. The pilot succeeded. Draiver asked me to join full-time. I said yes.</p>
-              <div class="case-metrics">
-                <div class="case-metric">
-                  <div class="case-metric-num">230%</div>
-                  <div class="case-metric-label">Throughput increase</div>
-                </div>
-                <div class="case-metric">
-                  <div class="case-metric-num">1→∞</div>
-                  <div class="case-metric-label">Markets entered</div>
-                </div>
-                <div class="case-metric">
-                  <div class="case-metric-num">Hired</div>
-                  <div class="case-metric-label">Consultant to full-time</div>
-                </div>
-              </div>
-              <span class="case-arrow">Expand case study →</span>
-            </div>
-          </div>
-        </div>
-        <div class="case-expand" id="expand-mexico">
-          <div class="expand-grid">
-            <div>
-              <div class="expand-section-title">The Situation</div>
-              <p class="expand-body">Draiver was pursuing an acquisition and needed to validate their model in a new international market before the deal closed. I was a strategy consultant at Nepanoa at the time, and Draiver was one of our clients. They needed someone who could go on the ground in Mexico, embed with the client's operation, and make the pilot work. I was the person they put on the ground.</p>
-              <div class="expand-section-title" style="margin-top:1.5rem">What I Did</div>
-              <ul class="expand-bullets">
-                <li>Embedded directly with the client's dispatchers and drivers, operating as the bridge between Draiver's product and the on-the-ground operation</li>
-                <li>Built a complete, improved training program in English from scratch, then translated it fully into Spanish. This was Draiver's first Spanish-speaking client, and the materials went on to train employees across future pilots and rollouts, as well as the customer support team</li>
-                <li>Ran the full pilot training cycle and proactively identified operational gaps on both the Draiver side and the client side, surfacing what needed to change internally and externally to hit the productivity targets</li>
-                <li>Increased throughput from 1.2 to 4 units/day, a 230% improvement over the course of the engagement</li>
-                <li>Project-managed the full expansion across all workstreams: reviewing documents and deliverables, tracking bugs, coordinating tech access, aligning stakeholders from multiple teams, delivering weekly status reports, and calling out blockers and delays before they became problems</li>
-                <li>Built the operational documentation and playbook that became the template for subsequent market expansions</li>
-                <li>Presented pilot results to C-suite leadership at both Draiver and the client, under acquisition scrutiny from multiple stakeholders</li>
-              </ul>
-            </div>
-            <div>
-              <div class="expand-section-title">What Happened Next</div>
-              <div class="learned-card">
-                <strong>The pilot contributed to the acquisition closing</strong>
-                <p>The Mexico engagement was one of the proof points the deal depended on. Demonstrating that the model could work in a new market, with a new language and client, mattered to the outcome.</p>
-              </div>
-              <div class="learned-card">
-                <strong>Draiver's CEO hired me out of consulting</strong>
-                <p>After the acquisition closed, Draiver's CEO asked me to join full-time and build the Customer Operations function from scratch. By that point I had earned the confidence of the entire C-suite. They had all been part of the pilot's progress reports and had seen firsthand how it was handled. I transitioned from external consultant to founding operator. The 0 to 30-person ops team, the CRM, the SOPs, all of that came next.</p>
-              </div>
-              <div class="learned-card">
-                <strong>What this engagement taught me about operating under pressure</strong>
-                <p>I was evaluated under real acquisition stakes, by real decision-makers, before they committed to me full-time. Being trusted enough to be hired away from the consulting firm is the signal I'm most proud of. The work spoke clearly enough that they didn't want to stop working with me.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- end mexico case-rows -->
-  </div>
-</section>
-
-<!-- SIDE PROJECTS -->
-<section id="projects">
-  <div class="section-inner">
-    <p class="section-label">Side Projects & Learning</p>
-    <h2 class="section-title">What I build when I'm curious.</h2>
-    <p class="section-intro">These are tools I built for myself to solve real problems in my own job search and interview prep. Each one is a working application built entirely with AI as a development collaborator.</p>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <div class="project-icon">⚙️</div>
-        <div class="project-title">Job Hunter OS: AI Resume &amp; Application Tracker</div>
-        <p class="project-desc">A single-file, locally-hosted web app that turns a job search into a structured, AI-assisted workflow. Includes a Role Analyzer (ATS score, H1B signal, salary intel), Resume Tailor, ATS Re-Scorer, Cover Letter generator with version history, Cold Outreach module, and a full Application Tracker. Every step carries data forward so nothing needs to be re-entered. Built specifically for a Senior Manager / Director-level PM search in NYC.</p>
-        <div class="project-tech">
-          <span>Vanilla JS</span><span>Claude API</span><span>Streaming</span><span>localStorage</span><span>Single-file</span>
-        </div>
-        <a href="https://docs.google.com/document/d/1SOOqTA198j-ZbEpuwSx8sr-Yv-nwCIKEA7ryUVVRBRE/edit?tab=t.0" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:0.8rem;font-weight:500;color:var(--accent);text-decoration:none;letter-spacing:0.02em;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-          Read the case study ↗
-        </a>
-        <div style="display:flex;gap:0.75rem;margin-top:0.6rem;flex-wrap:wrap;">
-          <a href="https://github.com/fernanda-flva/job-hunter-os" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="https://fernanda-flva.github.io/job-hunter-os" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
-            ↗ Live Demo
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-icon">🎯</div>
-        <div class="project-title">Interview Case Coach: Business Operations &amp; Strategy Prep System</div>
-        <p class="project-desc">A suite of three tools for decomposition-style case interview prep, built specifically for consulting and business operations roles. The Decomposition Interview Guide covers 12 case scenarios with the full logic flow an interviewer expects, the clarifying questions a strong candidate should ask, and a side-by-side red flags vs. strong signals grid for each case. The Candidate Model Answers document works through all 12 cases as live candidate-to-interviewer dialogue, with alternative approaches rated weak, acceptable, or strong so you understand not just the ideal path but why weaker paths fail. The Case Coach is the active practice tool: paste any case prompt, work through all 7 framework phases, and get specific AI feedback at each step plus a 35-point readiness score at the end.</p>
-        <div class="project-tech">
-          <span>Claude API</span><span>Decomposition framework</span><span>BizOps &amp; Strategy</span><span>AI feedback</span>
-        </div>
-        <a href="https://docs.google.com/document/d/1yV3DmulCo5nZtR7b2O-dRrZl0pGWAHhP6KdX-Q8gfNg/edit?tab=t.0" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:0.8rem;font-weight:500;color:var(--accent);text-decoration:none;letter-spacing:0.02em;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-          Read the case study ↗
-        </a>
-        <div style="display:flex;gap:0.75rem;margin-top:0.6rem;flex-wrap:wrap;">
-          <a href="https://github.com/fernanda-flva/interview-case-coach" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="https://fernanda-flva.github.io/interview-case-coach/case-coach.html" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:500;color:var(--ink-500);text-decoration:none;padding:0.3rem 0.75rem;border:1px solid var(--sand-300);border-radius:4px;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--sand-300)';this.style.color='var(--ink-500)'">
-            ↗ Live Demo
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-icon">📰</div>
-        <div class="project-title">Personal Daily Digest</div>
-        <p class="project-desc">A custom daily briefing tool that aggregates news and content across only the topics I care about: business, product, tech, and market trends. I stay educated without spending time switching between tabs or scrolling through noise. Built as a personal AI workflow to reclaim the time I was previously losing to unfocused reading.</p>
-        <div class="project-tech">
-          <span>Claude API</span><span>Content curation</span><span>Personal workflow</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-icon">📚</div>
-        <div class="project-title">AI Certifications & Coursework</div>
-        <p class="project-desc">Actively building technical depth in AI — completing Anthropic's prompt engineering and LLM integration curriculum, and recently earned the Databricks Academy certification in AI Agent Fundamentals (score 80%+), covering agentic workflows, multi-agent systems, and enterprise AI on the Mosaic AI platform. Relevant to how I think about AI product implementation, not just theory.</p>
-        <div class="project-tech">
-          <span>Prompt engineering</span><span>LLM patterns</span><span>AI Agents</span><span>Databricks certified</span>
-        </div>
-        <a href="https://www.credential.net/0b4c72fd-33e6-4176-8a2c-e6d2b67e46ad" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:0.8rem;font-weight:500;color:var(--accent);text-decoration:none;letter-spacing:0.02em;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-          View certificate ↗
-        </a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-icon">📐</div>
-        <div class="project-title">Market Sizing for Fun</div>
-        <p class="project-desc">Not a formal project, but worth noting. I regularly use estimation and market sizing as a game. Pizza places, coffee shops, subway foot traffic, retail conversion rates. The analytical instinct runs constantly. It's the same muscle that makes me useful in a product discovery session or a strategy meeting, and it genuinely doesn't turn off.</p>
-        <div class="project-tech">
-          <span>Fermi estimation</span><span>Mental models</span><span>Always on</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-icon">🌎</div>
-        <div class="project-title">Bilingual Professional</div>
-        <p class="project-desc">Fluent in English and Spanish, with conversational German (Goethe B1). Having built and scaled products across the U.S., Mexico, Canada, and Brazil, working across languages and cultures isn't a line on a resume. It's how the actual work got done. International product expansion is something I understand from direct experience, not theory.</p>
-        <div class="project-tech">
-          <span>English</span><span>Spanish</span><span>German (B1)</span><span>4 markets</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
+ 
 <!-- RECOMMENDATIONS -->
 <section id="recommendations">
   <div class="section-inner">
     <p class="section-label">Recommendations</p>
     <h2 class="section-title">What colleagues say.</h2>
-    <p class="section-intro">From people who worked with me directly — managers, peers, and cross-functional leaders — across operations and product.</p>
-
+    <p class="section-intro">From people who worked with me directly, across operations and product.</p>
+ 
     <div class="rec-grid">
-
-      <!-- Dan Rizzo — direct manager, COO -->
+ 
       <div class="rec-card rec-featured">
         <div class="rec-quote-mark">"</div>
-        <blockquote class="rec-body">
+        <div class="rec-pull">She has a real grasp of unit economics and knows how to connect the dots between operational friction, product requirements, and financial impact.</div>
+        <div class="rec-body-collapsed">
           When we needed someone to lead our initial expansion into Mexico — a pilot project that became an enabler of the company's acquisition — Fernanda was the one we put on the ground. That assignment required a real ownership mentality and the ability to perform under serious scrutiny from multiple stakeholders.
           <br><br>
           From there, Fernanda built our Support Operations department from zero to a team of 30+ staff. She built the infrastructure that became the backbone not just for support, but for operations and product/engineering teams to standardize their own processes.
           <br><br>
-          A lot of ops leaders focus only on process. Fernanda thinks about the business and how the process fits into the broader strategy. She has a real grasp of unit economics and knows how to connect the dots between operational friction, product requirements, and financial impact.
-        </blockquote>
+          A lot of ops leaders focus only on process. Fernanda thinks about the business and how the process fits into the broader strategy.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read full recommendation ↓</button>
         <div class="rec-attribution">
-          <div class="rec-person">
+          <div>
             <div class="rec-name">Dan Rizzo</div>
             <div class="rec-title">Chief Operating Officer, DRAIVER · Former Direct Manager</div>
           </div>
-          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">
-            Verify on LinkedIn ↗
-          </a>
+          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">Verify on LinkedIn ↗</a>
         </div>
       </div>
-
-      <!-- Kevin Burke — CTO, cross-functional peer -->
+ 
       <div class="rec-card">
         <div class="rec-quote-mark">"</div>
-        <blockquote class="rec-body">
+        <div class="rec-pull">She has a genuine desire to understand not just the problem she's solving, but the product itself.</div>
+        <div class="rec-body-collapsed">
           What sets Fernanda apart is her remarkable role flexibility. She has seamlessly navigated multiple business units — stepping in as an individual contributor when the work demands deep, hands-on focus, and shifting into a leadership role when teams need direction and alignment.
           <br><br>
-          She also has a genuine desire to understand not just the problem she's solving, but the product itself. She digs in, asks the right questions, and builds a thorough understanding of the business and the people involved — making her an invaluable partner to every cross-functional team she works with.
-        </blockquote>
+          She digs in, asks the right questions, and builds a thorough understanding of the business and the people involved — making her an invaluable partner to every cross-functional team she works with.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read full recommendation ↓</button>
         <div class="rec-attribution">
-          <div class="rec-person">
+          <div>
             <div class="rec-name">Kevin Burke</div>
             <div class="rec-title">Chief Technology Officer, DRAIVER · Cross-functional Peer</div>
           </div>
-          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">
-            Verify on LinkedIn ↗
-          </a>
+          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">Verify on LinkedIn ↗</a>
         </div>
       </div>
-
-      <!-- Ryan Auf Der Heide — CPO, direct manager -->
+ 
       <div class="rec-card">
         <div class="rec-quote-mark">"</div>
-        <blockquote class="rec-body">
+        <div class="rec-pull">She actively looks for opportunities to add value, even in unfamiliar spaces, and steps up to make an impact.</div>
+        <div class="rec-body-collapsed">
           Fernanda brings strong product thinking, clear strategy, and a deep focus on user needs, consistently driving better outcomes and adoption.
           <br><br>
-          She navigates complex priorities well, balancing new features with system stability, and is excellent at spotting process improvements that boost team efficiency and delivery. Fernanda actively looks for opportunities to add value, even in unfamiliar spaces, and steps up to make an impact.
-        </blockquote>
+          She navigates complex priorities well, balancing new features with system stability, and is excellent at spotting process improvements that boost team efficiency and delivery.
+        </div>
+        <button class="rec-toggle" onclick="toggleRec(this)">Read full recommendation ↓</button>
         <div class="rec-attribution">
-          <div class="rec-person">
+          <div>
             <div class="rec-name">Ryan Auf Der Heide</div>
             <div class="rec-title">Chief Product Officer, The Good Game · Former Direct Manager</div>
           </div>
-          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">
-            Verify on LinkedIn ↗
-          </a>
+          <a href="https://www.linkedin.com/in/fernanda-flva/details/recommendations/" target="_blank" rel="noopener noreferrer" class="rec-verify">Verify on LinkedIn ↗</a>
         </div>
       </div>
-
+ 
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
     <p class="section-label">Contact</p>
-    <h2 class="section-title">Let's talk.</h2>
-    <div class="contact-grid">
+    <h2 class="section-title">Let's chat.</h2>
+    <div class="contact-grid" style="grid-template-columns:1fr;max-width:560px">
       <div class="contact-left">
-        <p>I'm actively exploring Senior PM, Product Operations, and Strategy roles in NYC. If you're working on something interesting, or if you're a recruiter with a role that's a real match, I'd like to hear from you.</p>
+        <p>I'm based in New York and open to conversations about interesting product and operations challenges. If you're building something that needs someone who asks a lot of questions and actually knows how to answer them, reach out.</p>
         <div class="contact-links">
           <a href="mailto:ferflva@gmail.com" class="contact-link">
             <div class="contact-link-icon">
@@ -1378,68 +553,48 @@
               <div class="contact-link-value">linkedin.com/in/fernanda-flva</div>
             </div>
           </a>
+          <a href="https://github.com/fernanda-flva" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,0.6)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-value">github.com/fernanda-flva</div>
+            </div>
+          </a>
         </div>
-      </div>
-      <div class="contact-right">
-        <div class="availability-badge">Available for new roles</div>
-        <h3>Senior PM, Product Ops & Strategy roles in NYC</h3>
-        <p>5+ years across logistics, marketplace, and consulting. Bilingual. Built products from 0 to 1 and scaled them across four international markets. Comfortable with technical depth and executive communication.</p>
-        <a href="mailto:ferflva@gmail.com" class="btn-primary">Send me an email →</a>
       </div>
     </div>
   </div>
 </section>
-
-<!-- FOOTER -->
+ 
 <footer>
   <p>© 2026 Maria Fernanda Flores · New York, NY</p>
-  <p>Built with intention.</p>
+  <div style="display:flex;gap:1.5rem">
+    <a href="index.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="resume.html">Resume</a>
+  </div>
 </footer>
-
+ 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-
-    // Case study expand/collapse — opens directly below clicked card's row
-    document.querySelectorAll('.case-card[data-case]').forEach(function(card) {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', function() {
-        var id = card.getAttribute('data-case');
-        var targetPanel = document.getElementById('expand-' + id);
-        if (!targetPanel) return;
-        var isOpen = targetPanel.classList.contains('open');
-
-        // Close all panels everywhere
-        document.querySelectorAll('.case-expand').forEach(function(e) {
-          e.classList.remove('open');
-        });
-        // Remove active state from all cards
-        document.querySelectorAll('.case-card[data-case]').forEach(function(c) {
-          c.classList.remove('active');
-        });
-
-        if (!isOpen) {
-          targetPanel.classList.add('open');
-          card.classList.add('active');
-          setTimeout(function() {
-            targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 60);
-        }
-      });
+  function toggleRec(btn) {
+    var card = btn.closest('.rec-card');
+    var body = card.querySelector('.rec-body-collapsed');
+    var isExpanded = card.classList.contains('expanded');
+    card.classList.toggle('expanded');
+    btn.textContent = isExpanded ? 'Read full recommendation ↓' : 'Collapse ↑';
+  }
+ 
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
     });
-
-    // Scroll-triggered fade-in
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.08 });
-
-    document.querySelectorAll('.fade-up').forEach(function(el) {
-      observer.observe(el);
-    });
-
-  });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
 </script>
+</body>
+</html>
